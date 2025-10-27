@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "sia"
 version = "0.1.0"
@@ -23,3 +27,7 @@ sia-api = "sia.api:main"
 [tool.uv]
 dev-dependencies = []
 package = true
+
+[tool.setuptools.packages.find]
+include = ["sia*"]
+exclude = ["data*", "backend*"]
