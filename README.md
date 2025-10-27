@@ -1,4 +1,4 @@
-**SIA – Service de catégorisation de feedbacks (API / vLLM local)**
+**SIA – Service de catégorisation de feedbacks (API / vLLM local, multi‑domaine)**
 
 - Modes LLM: `api` (fournisseur externe compatible OpenAI) ou `local` (vLLM OpenAI-compatible).
 - Charge les variables depuis `.env`.
@@ -40,6 +40,11 @@ Notes de conception:
 - Aucune relance silencieuse: si le JSON du LLM est invalide → erreur explicite.
 - Normalisation/agrégation des catégories et sous-catégories (déduplication simple + synonymes FR/EN).
 - Journalisation sobre et utile.
+
+Catégorisation multi‑domaine
+- Le prompt et la taxonomie sont génériques (produit, service, retail, SaaS, logistique…).
+- Catégories suggérées (non exclusives): bug, fiabilite, performance, usabilite, acces, facturation, prix, paiement, livraison, support, contenu/documentation, fonction manquante, securite, qualite, commande, retours, compatibilite, integration, materiel.
+- Extensibilité: ajoutez des synonymes via l’environnement, par ex. `TAXONOMY_EXTRA_SYNONYMS='{"marketing": ["campagne", "promotion"], "partenariat": ["partner", "partenaire"]}'`.
 
 Mode local (vLLM):
 - Démarrer un serveur OpenAI-compatible vLLM, par ex.:
