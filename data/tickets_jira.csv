@@ -1,0 +1,501 @@
+ticket_id,resume,description,creation_date,departement
+JIRA-0105,Souris sans fil qui ne répond plus,La souris Bluetooth se déconnecte régulièrement. Nécessite un redémarrage du PC.,2025-04-21 11:22:18,Marketing
+JIRA-0309,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-04-21 11:22:18,Direction
+JIRA-0430,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-04-21 11:22:18,Ressources Humaines
+JIRA-0050,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-04-22 11:22:18,Marketing
+JIRA-0251,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-04-22 11:22:18,Juridique
+JIRA-0198,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-04-23 11:22:18,IT
+JIRA-0474,Application mobile professionnelle qui crash,L'application mobile de gestion des sinistres se ferme automatiquement au démarrage.,2025-04-23 11:22:18,Comptabilité
+JIRA-0047,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-04-24 11:22:18,Sinistres
+JIRA-0058,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-04-24 11:22:18,Juridique
+JIRA-0236,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-04-24 11:22:18,Commercial
+JIRA-0480,Problème de son lors des visioconférences,Les participants n'entendent pas ma voix lors des appels Teams. Le micro semble ne pas fonctionner.,2025-04-24 11:22:18,Sinistres
+JIRA-0051,Lenteur importante sur l'application métier,L'application de souscription est extrêmement lente depuis 2 jours. Les temps de chargement dépassent 30 secondes.,2025-04-25 11:22:18,Service Client
+JIRA-0258,Demande d'installation de logiciel,Besoin d'installer Adobe Acrobat Pro pour la signature électronique des contrats.,2025-04-25 11:22:18,Service Client
+JIRA-0383,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-04-25 11:22:18,Souscription
+JIRA-0387,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-04-25 11:22:18,Recouvrement
+JIRA-0497,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-04-25 11:22:18,Juridique
+JIRA-0086,Problème de webcam pour les visioconférences,Ma webcam n'est pas détectée par Teams. Impossible de participer aux réunions vidéo.,2025-04-26 11:22:18,Ressources Humaines
+JIRA-0240,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-04-26 11:22:18,Commercial
+JIRA-0370,Problème de son lors des visioconférences,Les participants n'entendent pas ma voix lors des appels Teams. Le micro semble ne pas fonctionner.,2025-04-26 11:22:18,Recouvrement
+JIRA-0481,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-04-26 11:22:18,Souscription
+JIRA-0120,Problème de messagerie instantanée,Teams indique 'Hors ligne' en permanence alors que j'ai une connexion internet.,2025-04-27 11:22:18,Souscription
+JIRA-0281,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-04-27 11:22:18,Juridique
+JIRA-0300,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-04-27 11:22:18,Service Client
+JIRA-0413,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-04-27 11:22:18,Ressources Humaines
+JIRA-0426,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-04-27 11:22:18,IT
+JIRA-0304,Lenteur importante sur l'application métier,L'application de souscription est extrêmement lente depuis 2 jours. Les temps de chargement dépassent 30 secondes.,2025-04-28 11:22:18,Ressources Humaines
+JIRA-0414,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-04-28 11:22:18,Comptabilité
+JIRA-0138,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-04-29 11:22:18,Sinistres
+JIRA-0361,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-04-29 11:22:18,Comptabilité
+JIRA-0427,Demande de suppression de compte utilisateur,Collaborateur parti. Besoin de désactiver son compte et transférer ses données.,2025-04-29 11:22:18,IT
+JIRA-0111,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-04-30 11:22:18,Marketing
+JIRA-0243,Accès bloqué à l'application de gestion des sinistres,Message d'erreur 'Accès refusé' lors de la tentative de connexion à SINISTRA. Besoin d'un accès urgent.,2025-04-30 11:22:18,Commercial
+JIRA-0057,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-05-01 11:22:18,Recouvrement
+JIRA-0100,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-05-01 11:22:18,Souscription
+JIRA-0316,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-05-01 11:22:18,Service Client
+JIRA-0362,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-05-01 11:22:18,Service Client
+JIRA-0255,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-05-02 11:22:18,Service Client
+JIRA-0299,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-05-02 11:22:18,Service Client
+JIRA-0074,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-05-03 11:22:18,Ressources Humaines
+JIRA-0116,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-05-03 11:22:18,Ressources Humaines
+JIRA-0319,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-05-03 11:22:18,Recouvrement
+JIRA-0090,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-05-04 11:22:18,Direction
+JIRA-0001,Demande de licence Office supplémentaire,Besoin d'une licence Microsoft Office pour le nouveau stagiaire du service comptabilité.,2025-05-05 11:22:18,Sinistres
+JIRA-0011,Demande de suppression de compte utilisateur,Collaborateur parti. Besoin de désactiver son compte et transférer ses données.,2025-05-05 11:22:18,Recouvrement
+JIRA-0075,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-05-05 11:22:18,Sinistres
+JIRA-0342,Problème de son lors des visioconférences,Les participants n'entendent pas ma voix lors des appels Teams. Le micro semble ne pas fonctionner.,2025-05-05 11:22:18,Marketing
+JIRA-0396,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-05-05 11:22:18,Juridique
+JIRA-0254,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-05-06 11:22:18,Juridique
+JIRA-0135,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-05-07 11:22:18,Commercial
+JIRA-0244,Imprimante du 3ème étage hors service,L'imprimante Canon du service sinistres affiche un message d'erreur et ne répond plus.,2025-05-07 11:22:18,Direction
+JIRA-0349,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-05-07 11:22:18,Actuariat
+JIRA-0059,Problème de son lors des visioconférences,Les participants n'entendent pas ma voix lors des appels Teams. Le micro semble ne pas fonctionner.,2025-05-08 11:22:18,Direction
+JIRA-0178,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-05-08 11:22:18,Souscription
+JIRA-0343,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-05-08 11:22:18,Direction
+JIRA-0159,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-05-09 11:22:18,Commercial
+JIRA-0185,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-05-09 11:22:18,Direction
+JIRA-0206,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-05-09 11:22:18,Direction
+JIRA-0216,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-05-09 11:22:18,Service Client
+JIRA-0110,Problème d'accès au lecteur réseau partagé,Le lecteur Z: (serveur FILESERVER01) n'est plus accessible. Message 'Chemin réseau introuvable'.,2025-05-10 11:22:18,Actuariat
+JIRA-0027,Demande de licence Office supplémentaire,Besoin d'une licence Microsoft Office pour le nouveau stagiaire du service comptabilité.,2025-05-11 11:22:18,Ressources Humaines
+JIRA-0069,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-05-11 11:22:18,Commercial
+JIRA-0324,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-05-11 11:22:18,Service Client
+JIRA-0151,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-05-13 11:22:18,Souscription
+JIRA-0286,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-05-13 11:22:18,Ressources Humaines
+JIRA-0459,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-05-13 11:22:18,Ressources Humaines
+JIRA-0112,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-05-14 11:22:18,Comptabilité
+JIRA-0215,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-05-14 11:22:18,Comptabilité
+JIRA-0280,Problème de messagerie instantanée,Teams indique 'Hors ligne' en permanence alors que j'ai une connexion internet.,2025-05-14 11:22:18,Comptabilité
+JIRA-0314,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-05-14 11:22:18,Marketing
+JIRA-0420,Problème d'affichage de caractères spéciaux,Les accents et caractères spéciaux s'affichent mal dans certaines applications.,2025-05-14 11:22:18,Sinistres
+JIRA-0451,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-05-14 11:22:18,Sinistres
+JIRA-0065,Imprimante du 3ème étage hors service,L'imprimante Canon du service sinistres affiche un message d'erreur et ne répond plus.,2025-05-15 11:22:18,Souscription
+JIRA-0168,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-05-15 11:22:18,Ressources Humaines
+JIRA-0323,Problème de webcam pour les visioconférences,Ma webcam n'est pas détectée par Teams. Impossible de participer aux réunions vidéo.,2025-05-15 11:22:18,Ressources Humaines
+JIRA-0485,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-05-15 11:22:18,Actuariat
+JIRA-0048,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-05-16 11:22:18,IT
+JIRA-0256,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-05-16 11:22:18,IT
+JIRA-0262,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-05-16 11:22:18,Marketing
+JIRA-0377,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-05-16 11:22:18,Commercial
+JIRA-0083,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-05-17 11:22:18,IT
+JIRA-0235,Logiciel Excel qui plante régulièrement,Excel se ferme automatiquement toutes les heures avec un message d'erreur. Perte de données non sauvegardées.,2025-05-17 11:22:18,Comptabilité
+JIRA-0239,Demande de licence Office supplémentaire,Besoin d'une licence Microsoft Office pour le nouveau stagiaire du service comptabilité.,2025-05-17 11:22:18,Juridique
+JIRA-0373,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-05-17 11:22:18,Ressources Humaines
+JIRA-0142,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-05-18 11:22:18,IT
+JIRA-0165,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-05-18 11:22:18,Service Client
+JIRA-0283,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-05-18 11:22:18,Commercial
+JIRA-0369,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-05-18 11:22:18,Direction
+JIRA-0488,Application mobile professionnelle qui crash,L'application mobile de gestion des sinistres se ferme automatiquement au démarrage.,2025-05-18 11:22:18,Service Client
+JIRA-0499,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-05-18 11:22:18,Juridique
+JIRA-0008,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-05-19 11:22:18,Marketing
+JIRA-0068,Problème de messagerie instantanée,Teams indique 'Hors ligne' en permanence alors que j'ai une connexion internet.,2025-05-19 11:22:18,IT
+JIRA-0166,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-05-19 11:22:18,Juridique
+JIRA-0483,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-05-19 11:22:18,Juridique
+JIRA-0040,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-05-20 11:22:18,IT
+JIRA-0225,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-05-20 11:22:18,Marketing
+JIRA-0231,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-05-20 11:22:18,Sinistres
+JIRA-0389,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-05-21 11:22:18,Actuariat
+JIRA-0147,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-05-22 11:22:18,Marketing
+JIRA-0334,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-05-22 11:22:18,Recouvrement
+JIRA-0392,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-05-22 11:22:18,Juridique
+JIRA-0439,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-05-22 11:22:18,Commercial
+JIRA-0461,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-05-22 11:22:18,Marketing
+JIRA-0161,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-05-23 11:22:18,Actuariat
+JIRA-0433,Lenteur importante sur l'application métier,L'application de souscription est extrêmement lente depuis 2 jours. Les temps de chargement dépassent 30 secondes.,2025-05-23 11:22:18,Souscription
+JIRA-0127,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-05-24 11:22:18,Juridique
+JIRA-0196,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-05-24 11:22:18,Souscription
+JIRA-0264,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-05-24 11:22:18,Service Client
+JIRA-0460,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-05-24 11:22:18,Ressources Humaines
+JIRA-0490,Demande de suppression de compte utilisateur,Collaborateur parti. Besoin de désactiver son compte et transférer ses données.,2025-05-24 11:22:18,Service Client
+JIRA-0015,Problème d'affichage de caractères spéciaux,Les accents et caractères spéciaux s'affichent mal dans certaines applications.,2025-05-25 11:22:18,Souscription
+JIRA-0423,Problème de webcam pour les visioconférences,Ma webcam n'est pas détectée par Teams. Impossible de participer aux réunions vidéo.,2025-05-25 11:22:18,Souscription
+JIRA-0465,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-05-25 11:22:18,Comptabilité
+JIRA-0241,Demande de licence Office supplémentaire,Besoin d'une licence Microsoft Office pour le nouveau stagiaire du service comptabilité.,2025-05-26 11:22:18,Direction
+JIRA-0261,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-05-26 11:22:18,Actuariat
+JIRA-0419,Demande de licence Office supplémentaire,Besoin d'une licence Microsoft Office pour le nouveau stagiaire du service comptabilité.,2025-05-26 11:22:18,Service Client
+JIRA-0421,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-05-26 11:22:18,Juridique
+JIRA-0477,Accès bloqué à l'application de gestion des sinistres,Message d'erreur 'Accès refusé' lors de la tentative de connexion à SINISTRA. Besoin d'un accès urgent.,2025-05-27 11:22:18,Sinistres
+JIRA-0173,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-05-28 11:22:18,Comptabilité
+JIRA-0191,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-05-28 11:22:18,Recouvrement
+JIRA-0223,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-05-28 11:22:18,Commercial
+JIRA-0230,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-05-28 11:22:18,IT
+JIRA-0278,Demande de suppression de compte utilisateur,Collaborateur parti. Besoin de désactiver son compte et transférer ses données.,2025-05-28 11:22:18,IT
+JIRA-0326,Accès bloqué à l'application de gestion des sinistres,Message d'erreur 'Accès refusé' lors de la tentative de connexion à SINISTRA. Besoin d'un accès urgent.,2025-05-28 11:22:18,Recouvrement
+JIRA-0010,Problème d'affichage de caractères spéciaux,Les accents et caractères spéciaux s'affichent mal dans certaines applications.,2025-05-29 11:22:18,Sinistres
+JIRA-0144,Demande d'installation de logiciel,Besoin d'installer Adobe Acrobat Pro pour la signature électronique des contrats.,2025-05-29 11:22:18,Ressources Humaines
+JIRA-0210,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-05-29 11:22:18,Marketing
+JIRA-0249,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-05-29 11:22:18,Service Client
+JIRA-0268,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-05-29 11:22:18,Direction
+JIRA-0348,Souris sans fil qui ne répond plus,La souris Bluetooth se déconnecte régulièrement. Nécessite un redémarrage du PC.,2025-05-29 11:22:18,Comptabilité
+JIRA-0386,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-05-29 11:22:18,Sinistres
+JIRA-0003,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-05-30 11:22:18,Comptabilité
+JIRA-0064,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-05-30 11:22:18,Direction
+JIRA-0160,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-05-30 11:22:18,IT
+JIRA-0190,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-05-30 11:22:18,Direction
+JIRA-0379,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-05-30 11:22:18,Souscription
+JIRA-0404,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-05-30 11:22:18,Comptabilité
+JIRA-0081,Problème de webcam pour les visioconférences,Ma webcam n'est pas détectée par Teams. Impossible de participer aux réunions vidéo.,2025-05-31 11:22:18,Marketing
+JIRA-0312,Problème de messagerie instantanée,Teams indique 'Hors ligne' en permanence alors que j'ai une connexion internet.,2025-05-31 11:22:18,IT
+JIRA-0035,Problème d'accès au lecteur réseau partagé,Le lecteur Z: (serveur FILESERVER01) n'est plus accessible. Message 'Chemin réseau introuvable'.,2025-06-01 11:22:18,Marketing
+JIRA-0207,Problème d'affichage de caractères spéciaux,Les accents et caractères spéciaux s'affichent mal dans certaines applications.,2025-06-02 11:22:18,Marketing
+JIRA-0285,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-06-02 11:22:18,Service Client
+JIRA-0337,Problème de son lors des visioconférences,Les participants n'entendent pas ma voix lors des appels Teams. Le micro semble ne pas fonctionner.,2025-06-02 11:22:18,IT
+JIRA-0378,Lenteur importante sur l'application métier,L'application de souscription est extrêmement lente depuis 2 jours. Les temps de chargement dépassent 30 secondes.,2025-06-02 11:22:18,Sinistres
+JIRA-0444,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-06-02 11:22:18,Actuariat
+JIRA-0148,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-06-03 11:22:18,Comptabilité
+JIRA-0195,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-06-03 11:22:18,Sinistres
+JIRA-0328,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-06-03 11:22:18,Direction
+JIRA-0471,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-06-03 11:22:18,Sinistres
+JIRA-0440,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-06-04 11:22:18,Marketing
+JIRA-0024,Lenteur importante sur l'application métier,L'application de souscription est extrêmement lente depuis 2 jours. Les temps de chargement dépassent 30 secondes.,2025-06-05 11:22:18,Recouvrement
+JIRA-0042,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-06-05 11:22:18,Comptabilité
+JIRA-0128,Problème de messagerie instantanée,Teams indique 'Hors ligne' en permanence alors que j'ai une connexion internet.,2025-06-05 11:22:18,Sinistres
+JIRA-0167,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-06-05 11:22:18,Recouvrement
+JIRA-0435,Demande de création de compte utilisateur,Nouveau collaborateur arrivé ce matin. Besoin de créer son compte AD et ses accès aux applications métier.,2025-06-05 11:22:18,IT
+JIRA-0442,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-06-05 11:22:18,Souscription
+JIRA-0498,Erreur lors de la sauvegarde sur serveur,Impossible de sauvegarder mes documents sur le serveur. Message 'Espace disque insuffisant'.,2025-06-05 11:22:18,Marketing
+JIRA-0293,Lenteur importante sur l'application métier,L'application de souscription est extrêmement lente depuis 2 jours. Les temps de chargement dépassent 30 secondes.,2025-06-06 11:22:18,Comptabilité
+JIRA-0071,Demande de licence Office supplémentaire,Besoin d'une licence Microsoft Office pour le nouveau stagiaire du service comptabilité.,2025-06-08 11:22:18,Souscription
+JIRA-0079,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-06-08 11:22:18,Ressources Humaines
+JIRA-0180,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-06-08 11:22:18,Recouvrement
+JIRA-0296,Demande de création de compte utilisateur,Nouveau collaborateur arrivé ce matin. Besoin de créer son compte AD et ses accès aux applications métier.,2025-06-08 11:22:18,Commercial
+JIRA-0475,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-06-08 11:22:18,Direction
+JIRA-0044,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-06-09 11:22:18,IT
+JIRA-0394,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-06-09 11:22:18,Souscription
+JIRA-0424,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-06-09 11:22:18,Sinistres
+JIRA-0054,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-06-10 11:22:18,IT
+JIRA-0172,Imprimante du 3ème étage hors service,L'imprimante Canon du service sinistres affiche un message d'erreur et ne répond plus.,2025-06-10 11:22:18,Sinistres
+JIRA-0203,Problème de connexion au réseau WiFi,Impossible de se connecter au WiFi d'entreprise. Le réseau est visible mais l'authentification échoue.,2025-06-11 11:22:18,Service Client
+JIRA-0322,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-06-11 11:22:18,Direction
+JIRA-0149,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-06-13 11:22:18,Commercial
+JIRA-0436,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-06-13 11:22:18,Recouvrement
+JIRA-0219,Demande de licence Office supplémentaire,Besoin d'une licence Microsoft Office pour le nouveau stagiaire du service comptabilité.,2025-06-14 11:22:18,Juridique
+JIRA-0257,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-06-14 11:22:18,Marketing
+JIRA-0018,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-06-16 11:22:18,Comptabilité
+JIRA-0028,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-06-16 11:22:18,Juridique
+JIRA-0045,Problème de connexion au réseau WiFi,Impossible de se connecter au WiFi d'entreprise. Le réseau est visible mais l'authentification échoue.,2025-06-17 11:22:18,Marketing
+JIRA-0053,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-06-17 11:22:18,Ressources Humaines
+JIRA-0143,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-06-17 11:22:18,Direction
+JIRA-0097,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-06-18 11:22:18,Direction
+JIRA-0199,Problème de webcam pour les visioconférences,Ma webcam n'est pas détectée par Teams. Impossible de participer aux réunions vidéo.,2025-06-18 11:22:18,Actuariat
+JIRA-0238,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-06-18 11:22:18,Commercial
+JIRA-0277,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-06-18 11:22:18,Comptabilité
+JIRA-0450,Demande de suppression de compte utilisateur,Collaborateur parti. Besoin de désactiver son compte et transférer ses données.,2025-06-18 11:22:18,Ressources Humaines
+JIRA-0224,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-06-19 11:22:18,Marketing
+JIRA-0260,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-06-19 11:22:18,Commercial
+JIRA-0315,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-06-19 11:22:18,IT
+JIRA-0347,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-06-19 11:22:18,Souscription
+JIRA-0484,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-06-19 11:22:18,Souscription
+JIRA-0039,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-06-20 11:22:18,Sinistres
+JIRA-0202,Problème de réception d'emails sur téléphone,Impossible de recevoir mes emails professionnels sur mon iPhone. La synchronisation ne fonctionne plus depuis ce matin.,2025-06-20 11:22:18,IT
+JIRA-0306,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-06-20 11:22:18,IT
+JIRA-0275,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-06-23 11:22:18,Commercial
+JIRA-0176,Problème de webcam pour les visioconférences,Ma webcam n'est pas détectée par Teams. Impossible de participer aux réunions vidéo.,2025-06-24 11:22:18,Souscription
+JIRA-0232,Problème de webcam pour les visioconférences,Ma webcam n'est pas détectée par Teams. Impossible de participer aux réunions vidéo.,2025-06-24 11:22:18,Service Client
+JIRA-0017,Application mobile professionnelle qui crash,L'application mobile de gestion des sinistres se ferme automatiquement au démarrage.,2025-06-25 11:22:18,Sinistres
+JIRA-0189,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-06-25 11:22:18,Souscription
+JIRA-0102,Demande de suppression de compte utilisateur,Collaborateur parti. Besoin de désactiver son compte et transférer ses données.,2025-06-26 11:22:18,Direction
+JIRA-0318,Demande de suppression de compte utilisateur,Collaborateur parti. Besoin de désactiver son compte et transférer ses données.,2025-06-26 11:22:18,Marketing
+JIRA-0372,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-06-26 11:22:18,IT
+JIRA-0431,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-06-26 11:22:18,Sinistres
+JIRA-0259,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-06-27 11:22:18,Comptabilité
+JIRA-0443,Problème de réception d'emails sur téléphone,Impossible de recevoir mes emails professionnels sur mon iPhone. La synchronisation ne fonctionne plus depuis ce matin.,2025-06-27 11:22:18,Juridique
+JIRA-0013,Accès bloqué à l'application de gestion des sinistres,Message d'erreur 'Accès refusé' lors de la tentative de connexion à SINISTRA. Besoin d'un accès urgent.,2025-06-28 11:22:18,Marketing
+JIRA-0132,Accès bloqué à l'application de gestion des sinistres,Message d'erreur 'Accès refusé' lors de la tentative de connexion à SINISTRA. Besoin d'un accès urgent.,2025-06-28 11:22:18,Direction
+JIRA-0158,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-06-28 11:22:18,Actuariat
+JIRA-0303,Erreur lors de la sauvegarde sur serveur,Impossible de sauvegarder mes documents sur le serveur. Message 'Espace disque insuffisant'.,2025-06-28 11:22:18,Recouvrement
+JIRA-0358,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-06-28 11:22:18,Commercial
+JIRA-0381,Demande de licence Office supplémentaire,Besoin d'une licence Microsoft Office pour le nouveau stagiaire du service comptabilité.,2025-06-28 11:22:18,Direction
+JIRA-0395,Logiciel Excel qui plante régulièrement,Excel se ferme automatiquement toutes les heures avec un message d'erreur. Perte de données non sauvegardées.,2025-06-28 11:22:18,Commercial
+JIRA-0208,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-06-29 11:22:18,Service Client
+JIRA-0287,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-06-29 11:22:18,Sinistres
+JIRA-0468,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-06-29 11:22:18,IT
+JIRA-0197,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-06-30 11:22:18,Service Client
+JIRA-0375,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-06-30 11:22:18,IT
+JIRA-0201,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-07-01 11:22:18,IT
+JIRA-0355,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-07-01 11:22:18,IT
+JIRA-0156,Problème d'accès au lecteur réseau partagé,Le lecteur Z: (serveur FILESERVER01) n'est plus accessible. Message 'Chemin réseau introuvable'.,2025-07-02 11:22:18,Commercial
+JIRA-0141,Problème de réception d'emails sur téléphone,Impossible de recevoir mes emails professionnels sur mon iPhone. La synchronisation ne fonctionne plus depuis ce matin.,2025-07-03 11:22:18,IT
+JIRA-0248,Souris sans fil qui ne répond plus,La souris Bluetooth se déconnecte régulièrement. Nécessite un redémarrage du PC.,2025-07-03 11:22:18,Actuariat
+JIRA-0269,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-07-03 11:22:18,Marketing
+JIRA-0402,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-07-03 11:22:18,Service Client
+JIRA-0002,Lenteur importante sur l'application métier,L'application de souscription est extrêmement lente depuis 2 jours. Les temps de chargement dépassent 30 secondes.,2025-07-04 11:22:18,IT
+JIRA-0066,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-07-04 11:22:18,Service Client
+JIRA-0126,Problème de son lors des visioconférences,Les participants n'entendent pas ma voix lors des appels Teams. Le micro semble ne pas fonctionner.,2025-07-04 11:22:18,IT
+JIRA-0388,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-07-04 11:22:18,IT
+JIRA-0464,Erreur lors de la sauvegarde sur serveur,Impossible de sauvegarder mes documents sur le serveur. Message 'Espace disque insuffisant'.,2025-07-04 11:22:18,Direction
+JIRA-0182,Problème d'accès au lecteur réseau partagé,Le lecteur Z: (serveur FILESERVER01) n'est plus accessible. Message 'Chemin réseau introuvable'.,2025-07-05 11:22:18,Comptabilité
+JIRA-0221,Problème de webcam pour les visioconférences,Ma webcam n'est pas détectée par Teams. Impossible de participer aux réunions vidéo.,2025-07-05 11:22:18,Service Client
+JIRA-0380,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-07-05 11:22:18,Comptabilité
+JIRA-0399,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-07-05 11:22:18,Actuariat
+JIRA-0107,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-07-07 11:22:18,Commercial
+JIRA-0174,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-07-07 11:22:18,Sinistres
+JIRA-0200,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-07-07 11:22:18,Direction
+JIRA-0494,Lenteur importante sur l'application métier,L'application de souscription est extrêmement lente depuis 2 jours. Les temps de chargement dépassent 30 secondes.,2025-07-07 11:22:18,Service Client
+JIRA-0098,Demande de création de compte utilisateur,Nouveau collaborateur arrivé ce matin. Besoin de créer son compte AD et ses accès aux applications métier.,2025-07-08 11:22:18,Service Client
+JIRA-0446,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-07-08 11:22:18,Commercial
+JIRA-0469,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-07-08 11:22:18,Actuariat
+JIRA-0076,Imprimante du 3ème étage hors service,L'imprimante Canon du service sinistres affiche un message d'erreur et ne répond plus.,2025-07-09 11:22:18,Marketing
+JIRA-0204,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-07-10 11:22:18,Sinistres
+JIRA-0350,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-07-10 11:22:18,Souscription
+JIRA-0367,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-07-10 11:22:18,Actuariat
+JIRA-0390,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-07-10 11:22:18,Juridique
+JIRA-0408,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-07-10 11:22:18,Sinistres
+JIRA-0033,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-07-11 11:22:18,Direction
+JIRA-0487,Erreur lors de la sauvegarde sur serveur,Impossible de sauvegarder mes documents sur le serveur. Message 'Espace disque insuffisant'.,2025-07-11 11:22:18,Direction
+JIRA-0500,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-07-11 11:22:18,Commercial
+JIRA-0073,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-07-12 11:22:18,Comptabilité
+JIRA-0152,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-07-12 11:22:18,Sinistres
+JIRA-0441,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-07-12 11:22:18,Comptabilité
+JIRA-0154,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-07-14 11:22:18,Commercial
+JIRA-0163,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-07-14 11:22:18,Direction
+JIRA-0188,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-07-14 11:22:18,Comptabilité
+JIRA-0193,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-07-15 11:22:18,Recouvrement
+JIRA-0310,Demande d'installation de logiciel,Besoin d'installer Adobe Acrobat Pro pour la signature électronique des contrats.,2025-07-15 11:22:18,Direction
+JIRA-0462,Problème d'affichage de caractères spéciaux,Les accents et caractères spéciaux s'affichent mal dans certaines applications.,2025-07-15 11:22:18,Direction
+JIRA-0115,Problème d'affichage de caractères spéciaux,Les accents et caractères spéciaux s'affichent mal dans certaines applications.,2025-07-16 11:22:18,Marketing
+JIRA-0297,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-07-16 11:22:18,Juridique
+JIRA-0352,Problème de réception d'emails sur téléphone,Impossible de recevoir mes emails professionnels sur mon iPhone. La synchronisation ne fonctionne plus depuis ce matin.,2025-07-16 11:22:18,Direction
+JIRA-0454,Problème d'accès au lecteur réseau partagé,Le lecteur Z: (serveur FILESERVER01) n'est plus accessible. Message 'Chemin réseau introuvable'.,2025-07-16 11:22:18,Marketing
+JIRA-0108,Demande de création de compte utilisateur,Nouveau collaborateur arrivé ce matin. Besoin de créer son compte AD et ses accès aux applications métier.,2025-07-17 11:22:18,Ressources Humaines
+JIRA-0118,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-07-17 11:22:18,Comptabilité
+JIRA-0157,Problème de son lors des visioconférences,Les participants n'entendent pas ma voix lors des appels Teams. Le micro semble ne pas fonctionner.,2025-07-17 11:22:18,Sinistres
+JIRA-0330,Problème d'affichage de caractères spéciaux,Les accents et caractères spéciaux s'affichent mal dans certaines applications.,2025-07-17 11:22:18,Service Client
+JIRA-0354,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-07-17 11:22:18,Recouvrement
+JIRA-0405,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-07-17 11:22:18,Service Client
+JIRA-0019,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-07-18 11:22:18,Comptabilité
+JIRA-0139,Accès bloqué à l'application de gestion des sinistres,Message d'erreur 'Accès refusé' lors de la tentative de connexion à SINISTRA. Besoin d'un accès urgent.,2025-07-18 11:22:18,Marketing
+JIRA-0398,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-07-18 11:22:18,Souscription
+JIRA-0032,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-07-19 11:22:18,Actuariat
+JIRA-0140,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-07-19 11:22:18,Commercial
+JIRA-0242,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-07-19 11:22:18,IT
+JIRA-0329,Souris sans fil qui ne répond plus,La souris Bluetooth se déconnecte régulièrement. Nécessite un redémarrage du PC.,2025-07-19 11:22:18,Comptabilité
+JIRA-0078,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-07-20 11:22:18,Actuariat
+JIRA-0272,Problème de réception d'emails sur téléphone,Impossible de recevoir mes emails professionnels sur mon iPhone. La synchronisation ne fonctionne plus depuis ce matin.,2025-07-20 11:22:18,Comptabilité
+JIRA-0307,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-07-20 11:22:18,Marketing
+JIRA-0401,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-07-21 11:22:18,Actuariat
+JIRA-0014,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-07-22 11:22:18,Actuariat
+JIRA-0265,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-07-22 11:22:18,Ressources Humaines
+JIRA-0298,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-07-22 11:22:18,Souscription
+JIRA-0020,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-07-23 11:22:18,Actuariat
+JIRA-0094,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-07-23 11:22:18,Direction
+JIRA-0095,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-07-23 11:22:18,Marketing
+JIRA-0294,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-07-23 11:22:18,IT
+JIRA-0336,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-07-23 11:22:18,Juridique
+JIRA-0233,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-07-24 11:22:18,Sinistres
+JIRA-0327,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-07-24 11:22:18,Actuariat
+JIRA-0397,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-07-24 11:22:18,Souscription
+JIRA-0187,Accès bloqué à l'application de gestion des sinistres,Message d'erreur 'Accès refusé' lors de la tentative de connexion à SINISTRA. Besoin d'un accès urgent.,2025-07-25 11:22:18,Service Client
+JIRA-0289,Problème de connexion au réseau WiFi,Impossible de se connecter au WiFi d'entreprise. Le réseau est visible mais l'authentification échoue.,2025-07-25 11:22:18,Comptabilité
+JIRA-0376,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-07-25 11:22:18,Actuariat
+JIRA-0409,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-07-25 11:22:18,Juridique
+JIRA-0428,Problème de messagerie instantanée,Teams indique 'Hors ligne' en permanence alors que j'ai une connexion internet.,2025-07-25 11:22:18,Marketing
+JIRA-0295,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-07-26 11:22:18,Direction
+JIRA-0417,Application mobile professionnelle qui crash,L'application mobile de gestion des sinistres se ferme automatiquement au démarrage.,2025-07-26 11:22:18,Actuariat
+JIRA-0406,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-07-27 11:22:18,Actuariat
+JIRA-0340,Problème d'accès au lecteur réseau partagé,Le lecteur Z: (serveur FILESERVER01) n'est plus accessible. Message 'Chemin réseau introuvable'.,2025-07-29 11:22:18,Comptabilité
+JIRA-0366,Demande de licence Office supplémentaire,Besoin d'une licence Microsoft Office pour le nouveau stagiaire du service comptabilité.,2025-07-29 11:22:18,Sinistres
+JIRA-0209,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-07-31 11:22:18,Direction
+JIRA-0266,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-07-31 11:22:18,IT
+JIRA-0331,Problème d'accès au lecteur réseau partagé,Le lecteur Z: (serveur FILESERVER01) n'est plus accessible. Message 'Chemin réseau introuvable'.,2025-07-31 11:22:18,Commercial
+JIRA-0006,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-08-01 11:22:18,Comptabilité
+JIRA-0082,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-08-01 11:22:18,Sinistres
+JIRA-0217,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-08-01 11:22:18,Recouvrement
+JIRA-0412,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-08-01 11:22:18,Juridique
+JIRA-0437,Souris sans fil qui ne répond plus,La souris Bluetooth se déconnecte régulièrement. Nécessite un redémarrage du PC.,2025-08-01 11:22:18,Service Client
+JIRA-0101,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-08-02 11:22:18,Recouvrement
+JIRA-0447,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-08-02 11:22:18,Commercial
+JIRA-0245,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-08-03 11:22:18,Direction
+JIRA-0325,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-08-03 11:22:18,Direction
+JIRA-0335,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-08-03 11:22:18,Comptabilité
+JIRA-0080,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-08-06 11:22:18,Actuariat
+JIRA-0234,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-08-06 11:22:18,Marketing
+JIRA-0353,Problème de réception d'emails sur téléphone,Impossible de recevoir mes emails professionnels sur mon iPhone. La synchronisation ne fonctionne plus depuis ce matin.,2025-08-06 11:22:18,Recouvrement
+JIRA-0162,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-08-07 11:22:18,Ressources Humaines
+JIRA-0449,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-08-07 11:22:18,Marketing
+JIRA-0495,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-08-07 11:22:18,Commercial
+JIRA-0339,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-08-08 11:22:18,IT
+JIRA-0351,Demande de suppression de compte utilisateur,Collaborateur parti. Besoin de désactiver son compte et transférer ses données.,2025-08-08 11:22:18,Comptabilité
+JIRA-0012,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-08-09 11:22:18,IT
+JIRA-0250,Imprimante du 3ème étage hors service,L'imprimante Canon du service sinistres affiche un message d'erreur et ne répond plus.,2025-08-09 11:22:18,Actuariat
+JIRA-0456,Problème d'accès au lecteur réseau partagé,Le lecteur Z: (serveur FILESERVER01) n'est plus accessible. Message 'Chemin réseau introuvable'.,2025-08-09 11:22:18,Souscription
+JIRA-0463,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-08-09 11:22:18,IT
+JIRA-0181,Demande d'installation de logiciel,Besoin d'installer Adobe Acrobat Pro pour la signature électronique des contrats.,2025-08-10 11:22:18,Ressources Humaines
+JIRA-0321,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-08-10 11:22:18,Service Client
+JIRA-0438,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-08-10 11:22:18,Comptabilité
+JIRA-0004,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-08-11 11:22:18,Service Client
+JIRA-0247,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-08-11 11:22:18,Ressources Humaines
+JIRA-0364,Demande de création de compte utilisateur,Nouveau collaborateur arrivé ce matin. Besoin de créer son compte AD et ses accès aux applications métier.,2025-08-11 11:22:18,Juridique
+JIRA-0491,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-08-11 11:22:18,Service Client
+JIRA-0288,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-08-12 11:22:18,Souscription
+JIRA-0452,Souris sans fil qui ne répond plus,La souris Bluetooth se déconnecte régulièrement. Nécessite un redémarrage du PC.,2025-08-12 11:22:18,Service Client
+JIRA-0476,Problème de webcam pour les visioconférences,Ma webcam n'est pas détectée par Teams. Impossible de participer aux réunions vidéo.,2025-08-12 11:22:18,Comptabilité
+JIRA-0055,Souris sans fil qui ne répond plus,La souris Bluetooth se déconnecte régulièrement. Nécessite un redémarrage du PC.,2025-08-13 11:22:18,Juridique
+JIRA-0091,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-08-13 11:22:18,Commercial
+JIRA-0186,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-08-13 11:22:18,Ressources Humaines
+JIRA-0305,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-08-13 11:22:18,Actuariat
+JIRA-0365,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-08-13 11:22:18,Marketing
+JIRA-0407,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-08-13 11:22:18,Actuariat
+JIRA-0429,Souris sans fil qui ne répond plus,La souris Bluetooth se déconnecte régulièrement. Nécessite un redémarrage du PC.,2025-08-13 11:22:18,Actuariat
+JIRA-0022,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-08-14 11:22:18,Recouvrement
+JIRA-0046,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-08-14 11:22:18,Sinistres
+JIRA-0106,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-08-14 11:22:18,Recouvrement
+JIRA-0270,Souris sans fil qui ne répond plus,La souris Bluetooth se déconnecte régulièrement. Nécessite un redémarrage du PC.,2025-08-14 11:22:18,Souscription
+JIRA-0492,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-08-15 11:22:18,Recouvrement
+JIRA-0457,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-08-16 11:22:18,Recouvrement
+JIRA-0117,Problème de messagerie instantanée,Teams indique 'Hors ligne' en permanence alors que j'ai une connexion internet.,2025-08-17 11:22:18,Service Client
+JIRA-0332,Problème d'accès au lecteur réseau partagé,Le lecteur Z: (serveur FILESERVER01) n'est plus accessible. Message 'Chemin réseau introuvable'.,2025-08-17 11:22:18,Service Client
+JIRA-0113,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-08-18 11:22:18,Juridique
+JIRA-0122,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-08-18 11:22:18,Recouvrement
+JIRA-0085,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-08-19 11:22:18,Ressources Humaines
+JIRA-0177,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-08-19 11:22:18,Marketing
+JIRA-0169,Application mobile professionnelle qui crash,L'application mobile de gestion des sinistres se ferme automatiquement au démarrage.,2025-08-21 11:22:18,Ressources Humaines
+JIRA-0184,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-08-21 11:22:18,Commercial
+JIRA-0227,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-08-21 11:22:18,Marketing
+JIRA-0482,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-08-21 11:22:18,Sinistres
+JIRA-0099,Demande d'installation de logiciel,Besoin d'installer Adobe Acrobat Pro pour la signature électronique des contrats.,2025-08-22 11:22:18,Recouvrement
+JIRA-0344,Logiciel Excel qui plante régulièrement,Excel se ferme automatiquement toutes les heures avec un message d'erreur. Perte de données non sauvegardées.,2025-08-22 11:22:18,IT
+JIRA-0228,Erreur lors de la sauvegarde sur serveur,Impossible de sauvegarder mes documents sur le serveur. Message 'Espace disque insuffisant'.,2025-08-23 11:22:18,Actuariat
+JIRA-0458,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-08-23 11:22:18,Juridique
+JIRA-0109,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-08-24 11:22:18,Direction
+JIRA-0213,Problème de connexion au réseau WiFi,Impossible de se connecter au WiFi d'entreprise. Le réseau est visible mais l'authentification échoue.,2025-08-24 11:22:18,IT
+JIRA-0374,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-08-24 11:22:18,Recouvrement
+JIRA-0062,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-08-25 11:22:18,Direction
+JIRA-0131,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-08-25 11:22:18,Marketing
+JIRA-0384,Demande de suppression de compte utilisateur,Collaborateur parti. Besoin de désactiver son compte et transférer ses données.,2025-08-25 11:22:18,Service Client
+JIRA-0070,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-08-26 11:22:18,IT
+JIRA-0179,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-08-26 11:22:18,Actuariat
+JIRA-0279,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-08-26 11:22:18,Actuariat
+JIRA-0448,Erreur lors de la sauvegarde sur serveur,Impossible de sauvegarder mes documents sur le serveur. Message 'Espace disque insuffisant'.,2025-08-26 11:22:18,Comptabilité
+JIRA-0385,Demande de suppression de compte utilisateur,Collaborateur parti. Besoin de désactiver son compte et transférer ses données.,2025-08-27 11:22:18,Comptabilité
+JIRA-0486,Demande d'installation de logiciel,Besoin d'installer Adobe Acrobat Pro pour la signature électronique des contrats.,2025-08-27 11:22:18,Ressources Humaines
+JIRA-0155,Demande de suppression de compte utilisateur,Collaborateur parti. Besoin de désactiver son compte et transférer ses données.,2025-08-28 11:22:18,Marketing
+JIRA-0183,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-08-28 11:22:18,Sinistres
+JIRA-0473,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-08-28 11:22:18,Service Client
+JIRA-0479,Application mobile professionnelle qui crash,L'application mobile de gestion des sinistres se ferme automatiquement au démarrage.,2025-08-28 11:22:18,Service Client
+JIRA-0093,Erreur lors de la sauvegarde sur serveur,Impossible de sauvegarder mes documents sur le serveur. Message 'Espace disque insuffisant'.,2025-08-29 11:22:18,Sinistres
+JIRA-0194,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-08-29 11:22:18,Juridique
+JIRA-0313,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-08-29 11:22:18,Commercial
+JIRA-0043,Application mobile professionnelle qui crash,L'application mobile de gestion des sinistres se ferme automatiquement au démarrage.,2025-08-31 11:22:18,Actuariat
+JIRA-0273,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-08-31 11:22:18,Sinistres
+JIRA-0302,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-08-31 11:22:18,IT
+JIRA-0493,Problème de messagerie instantanée,Teams indique 'Hors ligne' en permanence alors que j'ai une connexion internet.,2025-08-31 11:22:18,Service Client
+JIRA-0496,Erreur lors de la sauvegarde sur serveur,Impossible de sauvegarder mes documents sur le serveur. Message 'Espace disque insuffisant'.,2025-08-31 11:22:18,IT
+JIRA-0114,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-09-01 11:22:18,Service Client
+JIRA-0220,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-09-01 11:22:18,Recouvrement
+JIRA-0391,Problème de webcam pour les visioconférences,Ma webcam n'est pas détectée par Teams. Impossible de participer aux réunions vidéo.,2025-09-01 11:22:18,Direction
+JIRA-0009,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-09-02 11:22:18,Comptabilité
+JIRA-0125,Problème de réception d'emails sur téléphone,Impossible de recevoir mes emails professionnels sur mon iPhone. La synchronisation ne fonctionne plus depuis ce matin.,2025-09-02 11:22:18,IT
+JIRA-0171,Demande de suppression de compte utilisateur,Collaborateur parti. Besoin de désactiver son compte et transférer ses données.,2025-09-03 11:22:18,Comptabilité
+JIRA-0214,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-09-03 11:22:18,Juridique
+JIRA-0246,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-09-03 11:22:18,Souscription
+JIRA-0271,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-09-03 11:22:18,IT
+JIRA-0218,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-09-04 11:22:18,Juridique
+JIRA-0434,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-09-04 11:22:18,Actuariat
+JIRA-0338,Erreur lors de la sauvegarde sur serveur,Impossible de sauvegarder mes documents sur le serveur. Message 'Espace disque insuffisant'.,2025-09-05 11:22:18,Juridique
+JIRA-0345,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-09-05 11:22:18,Marketing
+JIRA-0016,Logiciel Excel qui plante régulièrement,Excel se ferme automatiquement toutes les heures avec un message d'erreur. Perte de données non sauvegardées.,2025-09-06 11:22:18,Sinistres
+JIRA-0026,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-09-06 11:22:18,Direction
+JIRA-0038,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-09-06 11:22:18,Comptabilité
+JIRA-0096,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-09-07 11:22:18,Recouvrement
+JIRA-0432,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-09-07 11:22:18,Comptabilité
+JIRA-0029,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-09-08 11:22:18,Juridique
+JIRA-0357,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-09-08 11:22:18,Recouvrement
+JIRA-0410,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-09-08 11:22:18,Ressources Humaines
+JIRA-0077,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-09-10 11:22:18,Souscription
+JIRA-0164,Demande d'installation de logiciel,Besoin d'installer Adobe Acrobat Pro pour la signature électronique des contrats.,2025-09-10 11:22:18,Service Client
+JIRA-0445,Problème de son lors des visioconférences,Les participants n'entendent pas ma voix lors des appels Teams. Le micro semble ne pas fonctionner.,2025-09-10 11:22:18,Direction
+JIRA-0453,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-09-10 11:22:18,Actuariat
+JIRA-0025,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-09-11 11:22:18,Juridique
+JIRA-0072,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-09-11 11:22:18,Direction
+JIRA-0205,Accès bloqué à l'application de gestion des sinistres,Message d'erreur 'Accès refusé' lors de la tentative de connexion à SINISTRA. Besoin d'un accès urgent.,2025-09-11 11:22:18,Ressources Humaines
+JIRA-0276,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-09-11 11:22:18,Commercial
+JIRA-0284,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-09-11 11:22:18,Juridique
+JIRA-0415,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-09-11 11:22:18,Direction
+JIRA-0030,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-09-12 11:22:18,Actuariat
+JIRA-0360,Demande de changement de mot de passe messagerie,Suspicion de compromission du compte email. Demande de réinitialisation immédiate.,2025-09-12 11:22:18,Direction
+JIRA-0124,Souris sans fil qui ne répond plus,La souris Bluetooth se déconnecte régulièrement. Nécessite un redémarrage du PC.,2025-09-14 11:22:18,Comptabilité
+JIRA-0226,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-09-14 11:22:18,Recouvrement
+JIRA-0237,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-09-14 11:22:18,IT
+JIRA-0472,Problème d'affichage de caractères spéciaux,Les accents et caractères spéciaux s'affichent mal dans certaines applications.,2025-09-14 11:22:18,IT
+JIRA-0274,Demande de licence Office supplémentaire,Besoin d'une licence Microsoft Office pour le nouveau stagiaire du service comptabilité.,2025-09-15 11:22:18,Comptabilité
+JIRA-0021,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-09-16 11:22:18,IT
+JIRA-0121,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-09-16 11:22:18,Comptabilité
+JIRA-0416,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-09-16 11:22:18,Marketing
+JIRA-0311,Demande d'installation de logiciel,Besoin d'installer Adobe Acrobat Pro pour la signature électronique des contrats.,2025-09-17 11:22:18,Souscription
+JIRA-0023,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-09-18 11:22:18,Service Client
+JIRA-0212,Problème d'affichage de caractères spéciaux,Les accents et caractères spéciaux s'affichent mal dans certaines applications.,2025-09-18 11:22:18,Commercial
+JIRA-0317,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-09-18 11:22:18,Marketing
+JIRA-0368,Demande d'installation de logiciel,Besoin d'installer Adobe Acrobat Pro pour la signature électronique des contrats.,2025-09-18 11:22:18,Commercial
+JIRA-0308,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-09-19 11:22:18,Juridique
+JIRA-0145,Problème de webcam pour les visioconférences,Ma webcam n'est pas détectée par Teams. Impossible de participer aux réunions vidéo.,2025-09-21 11:22:18,Sinistres
+JIRA-0063,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-09-22 11:22:18,IT
+JIRA-0133,Impossible d'imprimer en recto-verso,L'option recto-verso n'apparaît plus dans les paramètres d'impression.,2025-09-22 11:22:18,Actuariat
+JIRA-0084,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-09-23 11:22:18,Juridique
+JIRA-0222,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-09-23 11:22:18,Recouvrement
+JIRA-0052,Souris sans fil qui ne répond plus,La souris Bluetooth se déconnecte régulièrement. Nécessite un redémarrage du PC.,2025-09-24 11:22:18,Marketing
+JIRA-0411,Scanner qui ne fonctionne plus,Le scanner du service courrier ne numérise plus les documents. Voyant rouge allumé.,2025-09-24 11:22:18,Commercial
+JIRA-0034,Logiciel Excel qui plante régulièrement,Excel se ferme automatiquement toutes les heures avec un message d'erreur. Perte de données non sauvegardées.,2025-09-26 11:22:18,Comptabilité
+JIRA-0134,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-09-26 11:22:18,Sinistres
+JIRA-0291,Demande de création de compte utilisateur,Nouveau collaborateur arrivé ce matin. Besoin de créer son compte AD et ses accès aux applications métier.,2025-09-26 11:22:18,Comptabilité
+JIRA-0087,Imprimante du 3ème étage hors service,L'imprimante Canon du service sinistres affiche un message d'erreur et ne répond plus.,2025-09-28 11:22:18,Recouvrement
+JIRA-0371,Mot de passe expiré - demande de réinitialisation,Mon mot de passe Active Directory a expiré et je n'arrive pas à le réinitialiser via le portail self-service.,2025-09-28 11:22:18,Souscription
+JIRA-0049,Problème de partage d'écran sur Teams,Impossible de partager mon écran lors des réunions. Option grisée dans Teams.,2025-09-29 11:22:18,Sinistres
+JIRA-0088,Problème de réception d'emails sur téléphone,Impossible de recevoir mes emails professionnels sur mon iPhone. La synchronisation ne fonctionne plus depuis ce matin.,2025-09-29 11:22:18,Commercial
+JIRA-0363,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-09-29 11:22:18,Comptabilité
+JIRA-0103,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-09-30 11:22:18,Ressources Humaines
+JIRA-0104,Accès bloqué à l'application de gestion des sinistres,Message d'erreur 'Accès refusé' lors de la tentative de connexion à SINISTRA. Besoin d'un accès urgent.,2025-09-30 11:22:18,Commercial
+JIRA-0400,Lenteur importante sur l'application métier,L'application de souscription est extrêmement lente depuis 2 jours. Les temps de chargement dépassent 30 secondes.,2025-09-30 11:22:18,IT
+JIRA-0067,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-10-01 11:22:18,Commercial
+JIRA-0211,Demande de création de compte utilisateur,Nouveau collaborateur arrivé ce matin. Besoin de créer son compte AD et ses accès aux applications métier.,2025-10-01 11:22:18,Ressources Humaines
+JIRA-0037,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-10-03 11:22:18,Direction
+JIRA-0267,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-10-03 11:22:18,IT
+JIRA-0478,Problème d'affichage de caractères spéciaux,Les accents et caractères spéciaux s'affichent mal dans certaines applications.,2025-10-03 11:22:18,Juridique
+JIRA-0146,Demande de licence Office supplémentaire,Besoin d'une licence Microsoft Office pour le nouveau stagiaire du service comptabilité.,2025-10-04 11:22:18,Comptabilité
+JIRA-0153,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-10-04 11:22:18,Actuariat
+JIRA-0333,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-10-04 11:22:18,Marketing
+JIRA-0005,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-10-05 11:22:18,Marketing
+JIRA-0007,Application mobile professionnelle qui crash,L'application mobile de gestion des sinistres se ferme automatiquement au démarrage.,2025-10-05 11:22:18,Juridique
+JIRA-0253,Demande de création de compte utilisateur,Nouveau collaborateur arrivé ce matin. Besoin de créer son compte AD et ses accès aux applications métier.,2025-10-05 11:22:18,Recouvrement
+JIRA-0359,Problème d'accès au lecteur réseau partagé,Le lecteur Z: (serveur FILESERVER01) n'est plus accessible. Message 'Chemin réseau introuvable'.,2025-10-05 11:22:18,Sinistres
+JIRA-0123,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-10-06 11:22:18,Souscription
+JIRA-0263,Imprimante du 3ème étage hors service,L'imprimante Canon du service sinistres affiche un message d'erreur et ne répond plus.,2025-10-06 11:22:18,Sinistres
+JIRA-0320,Problème d'affichage de caractères spéciaux,Les accents et caractères spéciaux s'affichent mal dans certaines applications.,2025-10-06 11:22:18,Comptabilité
+JIRA-0341,Badge d'accès désactivé,Mon badge ne fonctionne plus pour accéder au bâtiment. Refusé à tous les lecteurs.,2025-10-06 11:22:18,IT
+JIRA-0031,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-10-07 11:22:18,Sinistres
+JIRA-0150,Écran qui scintille - problème matériel,Mon écran Dell présente des scintillements constants. Cela devient difficile de travailler.,2025-10-07 11:22:18,Souscription
+JIRA-0393,Problème de webcam pour les visioconférences,Ma webcam n'est pas détectée par Teams. Impossible de participer aux réunions vidéo.,2025-10-07 11:22:18,Commercial
+JIRA-0466,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-10-07 11:22:18,Recouvrement
+JIRA-0470,Ordinateur portable très lent au démarrage,Mon PC met plus de 10 minutes à démarrer complètement. Performances dégradées.,2025-10-07 11:22:18,Recouvrement
+JIRA-0130,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-10-08 11:22:18,Direction
+JIRA-0136,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-10-08 11:22:18,Juridique
+JIRA-0489,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-10-08 11:22:18,Juridique
+JIRA-0175,Problème d'accès au lecteur réseau partagé,Le lecteur Z: (serveur FILESERVER01) n'est plus accessible. Message 'Chemin réseau introuvable'.,2025-10-10 11:22:18,Marketing
+JIRA-0252,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-10-10 11:22:18,IT
+JIRA-0346,Demande d'installation de logiciel,Besoin d'installer Adobe Acrobat Pro pour la signature électronique des contrats.,2025-10-10 11:22:18,Recouvrement
+JIRA-0403,Problème d'envoi d'emails avec pièces jointes,Impossible d'envoyer des emails avec des pièces jointes supérieures à 5 Mo. Message d'erreur systématique.,2025-10-10 11:22:18,Marketing
+JIRA-0467,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-10-10 11:22:18,Ressources Humaines
+JIRA-0170,Logiciel Excel qui plante régulièrement,Excel se ferme automatiquement toutes les heures avec un message d'erreur. Perte de données non sauvegardées.,2025-10-11 11:22:18,Recouvrement
+JIRA-0192,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-10-11 11:22:18,Recouvrement
+JIRA-0282,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-10-12 11:22:18,Ressources Humaines
+JIRA-0356,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-10-12 11:22:18,Sinistres
+JIRA-0382,Demande d'augmentation de droits sur application,Besoin d'obtenir les droits administrateur sur l'application de tarification pour valider les devis.,2025-10-12 11:22:18,Ressources Humaines
+JIRA-0425,Erreur lors de l'ouverture de fichiers PDF,Adobe Reader affiche 'Le fichier est endommagé' pour tous les PDFs reçus aujourd'hui.,2025-10-12 11:22:18,Comptabilité
+JIRA-0060,Disque dur externe non reconnu,Le disque dur USB de sauvegarde n'est plus détecté par Windows.,2025-10-13 11:22:18,Ressources Humaines
+JIRA-0089,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-10-13 11:22:18,Marketing
+JIRA-0129,Clavier défectueux - touches qui ne répondent pas,"Plusieurs touches du clavier (E, R, T) ne fonctionnent plus correctement. Besoin d'un remplacement.",2025-10-13 11:22:18,IT
+JIRA-0292,Application mobile professionnelle qui crash,L'application mobile de gestion des sinistres se ferme automatiquement au démarrage.,2025-10-13 11:22:18,Comptabilité
+JIRA-0036,Demande de transfert de poste téléphonique,Changement de bureau. Besoin de transférer mon numéro de poste vers le bureau 3.12.,2025-10-14 11:22:18,Recouvrement
+JIRA-0041,Lenteur importante sur l'application métier,L'application de souscription est extrêmement lente depuis 2 jours. Les temps de chargement dépassent 30 secondes.,2025-10-14 11:22:18,Comptabilité
+JIRA-0229,Accès refusé au dossier partagé Comptabilité,Message 'Vous n'avez pas les autorisations nécessaires' lors de l'accès au dossier \\COMPTA\Factures.,2025-10-14 11:22:18,Direction
+JIRA-0290,Logiciel Excel qui plante régulièrement,Excel se ferme automatiquement toutes les heures avec un message d'erreur. Perte de données non sauvegardées.,2025-10-14 11:22:18,Juridique
+JIRA-0422,Problème de synchronisation OneDrive,OneDrive indique 'Synchronisation en attente' depuis 48h. Les fichiers ne se synchronisent plus.,2025-10-14 11:22:18,Comptabilité
+JIRA-0092,Problème de certification électronique,Ma signature électronique a expiré. Besoin de renouveler le certificat.,2025-10-15 11:22:18,IT
+JIRA-0119,Impossibilité de se connecter au VPN,Le client VPN affiche une erreur 'Authentification échouée' alors que mes identifiants sont corrects.,2025-10-15 11:22:18,Service Client
+JIRA-0137,Téléphone fixe sans tonalité,Mon poste téléphonique ne fonctionne plus. Pas de tonalité et impossible de passer/recevoir des appels.,2025-10-15 11:22:18,Service Client
+JIRA-0061,Logiciel de gestion commerciale qui freeze,L'application CRM se fige régulièrement et nécessite un redémarrage forcé.,2025-10-17 11:22:18,Juridique
+JIRA-0455,Problème de connexion au réseau WiFi,Impossible de se connecter au WiFi d'entreprise. Le réseau est visible mais l'authentification échoue.,2025-10-17 11:22:18,Recouvrement
+JIRA-0056,Application de tarification qui ne se lance pas,Message d'erreur 'DLL manquante' au lancement de l'outil de calcul des primes.,2025-10-18 11:22:18,Service Client
+JIRA-0301,Demande de création de compte utilisateur,Nouveau collaborateur arrivé ce matin. Besoin de créer son compte AD et ses accès aux applications métier.,2025-10-18 11:22:18,Sinistres
+JIRA-0418,Problème de connexion à l'intranet,Impossible d'accéder à l'intranet de l'entreprise. Page blanche lors du chargement.,2025-10-18 11:22:18,Service Client
