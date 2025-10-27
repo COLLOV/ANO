@@ -13,7 +13,7 @@ import orjson
 from .config import load_settings
 from .llm_client import LLMClient
 from .categorizer import categorize_text
-from .taxonomy import Taxonomy
+from .taxonomy import Taxonomy, LLMTaxonomyConsolidator
 
 
 def setup_logging(level: str) -> None:
@@ -45,15 +45,20 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument("--input", type=Path, default=Path("data/tickets_jira.csv"))
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--limit", type=int, default=0, help="Limiter le nombre de lignes (0 = tout)")
+    parser.add_argument("--consolidate", action="store_true", help="Consolider les catégories/sous-catégories via LLM (2 passes)")
     args = parser.parse_args(argv)
 
     settings = load_settings()
     setup_logging(settings.log_level)
     client = LLMClient(settings)
     taxo = Taxonomy()
+    consolidator = LLMTaxonomyConsolidator(client) if args.consolidate else None
 
     out_f = args.output.open("wb") if args.output else None
     count = 0
+    buffered: List[dict] = []
+    all_cats: set[str] = set()
+    all_subs: set[str] = set()
 
     if not args.input.exists():
         logging.error("Input file not found: %s", args.input)
@@ -74,16 +79,38 @@ def main(argv: List[str] | None = None) -> int:
             "summary": result.summary,
             "estimated_impact": result.estimated_impact,
         }
-        data = orjson.dumps(payload)
-        if out_f:
-            out_f.write(data + b"\n")
+        if consolidator:
+            buffered.append(payload)
+            all_cats.add(cat)
+            for s in subs:
+                all_subs.add(s)
         else:
-            sys.stdout.buffer.write(data + b"\n")
+            data = orjson.dumps(payload)
+            if out_f:
+                out_f.write(data + b"\n")
+            else:
+                sys.stdout.buffer.write(data + b"\n")
         count += 1
         if args.limit and count >= args.limit:
             break
 
-    logging.info("Processed %d feedback(s). Categories=%d, Subcategories(total)=%d", count, len(taxo.categories), sum(len(v) for v in taxo.subs_by_cat.values()))
+    if consolidator and buffered:
+        cat_map, sub_map = consolidator.consolidate(all_cats, all_subs)
+        for p in buffered:
+            p["category"] = cat_map.get(p["category"], p["category"])
+            p["subcategories"] = [sub_map.get(s, s) for s in p["subcategories"]]
+            data = orjson.dumps(p)
+            if out_f:
+                out_f.write(data + b"\n")
+            else:
+                sys.stdout.buffer.write(data + b"\n")
+
+    logging.info(
+        "Processed %d feedback(s). Categories=%d, Subcategories(total)=%d",
+        count,
+        len(taxo.categories),
+        sum(len(v) for v in taxo.subs_by_cat.values()),
+    )
 
     if out_f:
         out_f.close()
@@ -92,4 +119,3 @@ def main(argv: List[str] | None = None) -> int:
 
 if __name__ == "__main__":  # pragma: no cover
     raise SystemExit(main())
-

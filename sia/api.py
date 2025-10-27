@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 from typing import List, Optional
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from pydantic import BaseModel
 
 from .config import load_settings
@@ -42,7 +42,7 @@ def health():
 
 
 @app.post("/categorize", response_model=List[CategorizeResponseItem])
-def categorize(req: CategorizeRequest):
+def categorize(req: CategorizeRequest, consolidate: bool = Query(default=False)):
     inputs: List[str] = []
     if req.text:
         inputs = [req.text]
@@ -51,11 +51,11 @@ def categorize(req: CategorizeRequest):
     else:
         return []
 
-    results: List[CategorizeResponseItem] = []
+    items: List[CategorizeResponseItem] = []
     for t in inputs:
         cls: Classification = categorize_text(client, t)
         cat, subs = taxo.align(cls.category, cls.subcategories)
-        results.append(
+        items.append(
             CategorizeResponseItem(
                 category=cat,
                 subcategories=subs,
@@ -65,7 +65,17 @@ def categorize(req: CategorizeRequest):
                 estimated_impact=cls.estimated_impact,
             )
         )
-    return results
+
+    if consolidate and len(items) > 0:
+        from .taxonomy import LLMTaxonomyConsolidator
+
+        cats = {it.category for it in items}
+        subs = {s for it in items for s in it.subcategories}
+        cat_map, sub_map = LLMTaxonomyConsolidator(client).consolidate(cats, subs)
+        for it in items:
+            it.category = cat_map.get(it.category, it.category)
+            it.subcategories = [sub_map.get(s, s) for s in it.subcategories]
+    return items
 
 
 def main() -> None:  # pragma: no cover
@@ -76,4 +86,3 @@ def main() -> None:  # pragma: no cover
 
 if __name__ == "__main__":  # pragma: no cover
     main()
-
