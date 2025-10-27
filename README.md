@@ -19,10 +19,11 @@ Installation (uv):
 CLI:
 - Lit CSV/JSONL. Colonnes supportées: `feedback`, `text`, `message`, `comment`, ou `resume`+`description` (Jira FR).
 - Sort sur stdout des lignes JSON (une par ticket) ou écrit un fichier via `--output`.
+ - Option `--consolidate`: 2 passes avec consolidation LLM des libellés (catégories/sous‑catégories) pour éviter les doublons/synonymes.
 
 API:
 - `GET /health` → statut (mode, modèle)
-- `POST /categorize` body: `{ "text": "..." }` ou `{ "texts": ["..."] }`
+- `POST /categorize` body: `{ "text": "..." }` ou `{ "texts": ["..."] }` et option `?consolidate=true` pour regrouper les libellés retournés par le LLM.
 
 Résultat (schéma synthétique):
 ```
@@ -38,7 +39,7 @@ Résultat (schéma synthétique):
 
 Notes de conception:
 - Aucune relance silencieuse: si le JSON du LLM est invalide → erreur explicite.
-- Normalisation/agrégation des catégories et sous-catégories (déduplication simple + synonymes FR/EN).
+- Pas de taxonomie imposée: le LLM propose les catégories. Une consolidation optionnelle par LLM permet de fusionner les variantes/synonymes.
 - Journalisation sobre et utile.
 
 Catégorisation multi‑domaine
