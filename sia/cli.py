@@ -46,6 +46,7 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--limit", type=int, default=0, help="Limiter le nombre de lignes (0 = tout)")
     parser.add_argument("--consolidate", action="store_true", help="Consolider les catégories/sous-catégories via LLM (2 passes)")
+    parser.add_argument("--format", choices=["jsonl", "csv"], default="jsonl", help="Format de sortie (défaut: jsonl)")
     args = parser.parse_args(argv)
 
     settings = load_settings()
@@ -54,56 +55,140 @@ def main(argv: List[str] | None = None) -> int:
     taxo = Taxonomy()
     consolidator = LLMTaxonomyConsolidator(client) if args.consolidate else None
 
-    out_f = args.output.open("wb") if args.output else None
-    count = 0
-    buffered: List[dict] = []
-    all_cats: set[str] = set()
-    all_subs: set[str] = set()
-
     if not args.input.exists():
         logging.error("Input file not found: %s", args.input)
         return 2
 
+    # Préparation de la sortie
+    out_f = None
+    csv_writer = None
+    if args.format == "csv" and args.output:
+        out_f = args.output.open("w", newline="", encoding="utf-8")
+    elif args.format == "jsonl" and args.output:
+        out_f = args.output.open("wb")
+
+    count = 0
+    buffered: List[dict] = []
+    all_cats: set[str] = set()
+    all_subs: set[str] = set()
+    input_fieldnames: List[str] = []
+
     for row in read_csv_rows(args.input):
+        # Capture des noms de colonnes du CSV original
+        if count == 0 and args.format == "csv":
+            input_fieldnames = list(row.keys())
+            output_fieldnames = input_fieldnames + [
+                "category", "subcategories", "sentiment",
+                "emotional_tone", "summary", "estimated_impact"
+            ]
+            if args.output:
+                csv_writer = csv.DictWriter(out_f, fieldnames=output_fieldnames)
+                csv_writer.writeheader()
+            elif not consolidator:
+                # Pour stdout en CSV sans consolidation
+                csv_writer = csv.DictWriter(sys.stdout, fieldnames=output_fieldnames)
+                csv_writer.writeheader()
+
         text = extract_text(row)
         if not text:
             continue
+
         result = categorize_text(client, text)
         cat, subs = taxo.align(result.category, result.subcategories)
-        payload = {
-            "ticket": row.get("ticket_id") or row.get("id") or count + 1,
+
+        # Fusion des données originales avec les nouvelles colonnes
+        output_row = row.copy()
+        output_row.update({
             "category": cat,
-            "subcategories": subs,
+            "subcategories": json.dumps(subs) if args.format == "csv" else subs,
             "sentiment": result.sentiment,
             "emotional_tone": result.emotional_tone,
             "summary": result.summary,
             "estimated_impact": result.estimated_impact,
-        }
+        })
+
         if consolidator:
-            buffered.append(payload)
+            buffered.append({
+                "original_row": row,
+                "category": cat,
+                "subcategories": subs,
+                "sentiment": result.sentiment,
+                "emotional_tone": result.emotional_tone,
+                "summary": result.summary,
+                "estimated_impact": result.estimated_impact,
+            })
             all_cats.add(cat)
             for s in subs:
                 all_subs.add(s)
         else:
-            data = orjson.dumps(payload)
-            if out_f:
-                out_f.write(data + b"\n")
-            else:
-                sys.stdout.buffer.write(data + b"\n")
+            if args.format == "csv":
+                if csv_writer:
+                    csv_writer.writerow(output_row)
+            else:  # jsonl
+                payload = {
+                    "ticket": row.get("ticket_id") or row.get("id") or count + 1,
+                    "category": cat,
+                    "subcategories": subs,
+                    "sentiment": result.sentiment,
+                    "emotional_tone": result.emotional_tone,
+                    "summary": result.summary,
+                    "estimated_impact": result.estimated_impact,
+                }
+                data = orjson.dumps(payload)
+                if out_f:
+                    out_f.write(data + b"\n")
+                else:
+                    sys.stdout.buffer.write(data + b"\n")
+
         count += 1
         if args.limit and count >= args.limit:
             break
 
+    # Consolidation
     if consolidator and buffered:
         cat_map, sub_map = consolidator.consolidate(all_cats, all_subs)
-        for p in buffered:
-            p["category"] = cat_map.get(p["category"], p["category"])
-            p["subcategories"] = [sub_map.get(s, s) for s in p["subcategories"]]
-            data = orjson.dumps(p)
-            if out_f:
-                out_f.write(data + b"\n")
-            else:
-                sys.stdout.buffer.write(data + b"\n")
+
+        # Initialiser csv_writer pour consolidation si nécessaire
+        if args.format == "csv" and not csv_writer:
+            output_fieldnames = input_fieldnames + [
+                "category", "subcategories", "sentiment",
+                "emotional_tone", "summary", "estimated_impact"
+            ]
+            csv_writer = csv.DictWriter(sys.stdout, fieldnames=output_fieldnames)
+            csv_writer.writeheader()
+
+        for item in buffered:
+            row = item["original_row"]
+            cat = cat_map.get(item["category"], item["category"])
+            subs = [sub_map.get(s, s) for s in item["subcategories"]]
+
+            if args.format == "csv":
+                output_row = row.copy()
+                output_row.update({
+                    "category": cat,
+                    "subcategories": json.dumps(subs),
+                    "sentiment": item["sentiment"],
+                    "emotional_tone": item["emotional_tone"],
+                    "summary": item["summary"],
+                    "estimated_impact": item["estimated_impact"],
+                })
+                if csv_writer:
+                    csv_writer.writerow(output_row)
+            else:  # jsonl
+                payload = {
+                    "ticket": row.get("ticket_id") or row.get("id") or "N/A",
+                    "category": cat,
+                    "subcategories": subs,
+                    "sentiment": item["sentiment"],
+                    "emotional_tone": item["emotional_tone"],
+                    "summary": item["summary"],
+                    "estimated_impact": item["estimated_impact"],
+                }
+                data = orjson.dumps(payload)
+                if out_f:
+                    out_f.write(data + b"\n")
+                else:
+                    sys.stdout.buffer.write(data + b"\n")
 
     logging.info(
         "Processed %d feedback(s). Categories=%d, Subcategories(total)=%d",
