@@ -1,0 +1,25 @@
+[project]
+name = "sia"
+version = "0.1.0"
+description = "Service de catégorisation de feedbacks avec LLM (API ou vLLM local)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Proprietary" }
+authors = [{ name = "SIA" }]
+
+dependencies = [
+  "openai>=1.51.0",
+  "fastapi>=0.112.0",
+  "uvicorn[standard]>=0.30.0",
+  "pydantic>=2.8.0",
+  "python-dotenv>=1.0.1",
+  "orjson>=3.10.7"
+]
+
+[project.scripts]
+sia-categorize = "sia.cli:main"
+sia-api = "sia.api:main"
+
+[tool.uv]
+dev-dependencies = []
+
