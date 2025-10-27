@@ -2,22 +2,49 @@ from __future__ import annotations
 
 import re
 import unicodedata
+import os
+import json
 from dataclasses import dataclass, field
 from difflib import get_close_matches
 from typing import Dict, List, Set
 
 
 CANON_SYNONYMS: Dict[str, List[str]] = {
-    "bug": ["bug", "erreur", "plantage", "crash"],
-    "performance": ["performance", "lent", "latence", "lag"],
-    "connexion": ["connexion", "login", "auth", "authentification", "identification", "signin"],
-    "impression": ["impression", "printer", "imprimante", "recto-verso"],
-    "reseau": ["reseau", "réseau", "vpn", "wifi", "lan"],
-    "securite": ["securite", "sécurité", "droits", "permission", "acces", "accès"],
-    "facturation": ["facturation", "billing", "paiement", "payment", "facture"],
+    # Transversal
+    "bug": ["bug", "erreur", "incident", "defaut", "plante", "plantage", "crash"],
+    "fiabilite": ["fiabilite", "stabilite", "panne", "intermittent", "aléatoire"],
+    "performance": ["performance", "lent", "latence", "lag", "ralenti", "degrade"],
     "usabilite": ["usabilite", "ux", "ergonomie", "interface", "ui", "utilisabilite"],
-    "fonction manquante": ["fonction manquante", "feature request", "idee", "amelioration", "manque"]
+    "acces": ["acces", "accès", "connexion", "login", "auth", "authentification", "identification", "compte", "verrouille"],
+    "facturation": ["facturation", "billing", "facture"],
+    "prix": ["prix", "tarif", "cout", "coût", "pricing"],
+    "paiement": ["paiement", "payment", "cb", "carte", "stripe", "refus"],
+    "livraison": ["livraison", "expedition", "expédition", "delai", "retard", "logistique", "tracking"],
+    "support": ["support", "service client", "sav", "assistance", "helpdesk"],
+    "contenu": ["contenu", "texte", "traduction", "documentation", "doc", "aide", "faq"],
+    "fonction manquante": ["fonction manquante", "feature request", "idee", "amélioration", "amelioration", "manque"],
+    "securite": ["securite", "sécurité", "confidentialite", "rgpd", "permission", "droits"],
+    "qualite": ["qualite", "qualité", "conformite", "defaut produit", "cassé", "casse", "abime"],
+    "commande": ["commande", "achat", "panier", "checkout", "validation"],
+    "retours": ["retours", "retour", "echange", "échange", "remboursement", "garantie"],
+    "compatibilite": ["compatibilite", "compatibilité", "version", "navigateur", "os", "device"],
+    "integration": ["integration", "intégration", "api", "webhook", "connecteur"],
+    "materiel": ["materiel", "matériel", "imprimante", "scanner", "terminal", "peripherique", "périphérique"],
 }
+
+# Optional: extend synonyms via env var TAXONOMY_EXTRA_SYNONYMS (JSON mapping)
+_extra = os.getenv("TAXONOMY_EXTRA_SYNONYMS")
+if _extra:
+    try:
+        extra_map = json.loads(_extra)
+        if isinstance(extra_map, dict):
+            for k, v in extra_map.items():
+                if isinstance(v, list) and all(isinstance(s, str) for s in v):
+                    CANON_SYNONYMS.setdefault(k, [])
+                    CANON_SYNONYMS[k].extend(v)
+    except json.JSONDecodeError:
+        # Keep strict behavior: invalid JSON should be visible to the operator.
+        raise
 
 
 def normalize(s: str) -> str:
@@ -61,4 +88,3 @@ class Taxonomy:
                 self.subs_by_cat[canon_cat].add(canon_sub)
             aligned_subs.append(canon_sub)
         return canon_cat, aligned_subs
-
