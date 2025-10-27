@@ -41,3 +41,10 @@ Notes de conception:
 - Normalisation/agrégation des catégories et sous-catégories (déduplication simple + synonymes FR/EN).
 - Journalisation sobre et utile.
 
+Mode local (vLLM):
+- Démarrer un serveur OpenAI-compatible vLLM, par ex.:
+  - `python -m vllm.entrypoints.openai.api_server --model <NOM_MODELE> --port 8001`
+- `.env`:
+  - `LLM_MODE=local`
+  - `VLLM_BASE_URL=http://127.0.0.1:8001/v1`
+  - `LLM_MODEL_LOCAL=<NOM_MODELE>`
