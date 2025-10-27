@@ -1,0 +1,3 @@
+[console_scripts]
+sia-api = sia.api:main
+sia-categorize = sia.cli:main

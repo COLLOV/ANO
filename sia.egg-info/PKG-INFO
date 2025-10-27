@@ -1,0 +1,58 @@
+Metadata-Version: 2.4
+Name: sia
+Version: 0.1.0
+Summary: Service de catégorisation de feedbacks avec LLM (API ou vLLM local)
+Author: SIA
+License: Proprietary
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: openai>=1.51.0
+Requires-Dist: fastapi>=0.112.0
+Requires-Dist: uvicorn[standard]>=0.30.0
+Requires-Dist: pydantic>=2.8.0
+Requires-Dist: python-dotenv>=1.0.1
+Requires-Dist: orjson>=3.10.7
+
+**SIA – Service de catégorisation de feedbacks (API / vLLM local)**
+
+- Modes LLM: `api` (fournisseur externe compatible OpenAI) ou `local` (vLLM OpenAI-compatible).
+- Charge les variables depuis `.env`.
+- Expose un CLI (`sia-categorize`) et une API HTTP (`sia-api`).
+
+Env requis (.env):
+- `LLM_MODE` = `api` ou `local`
+- `OPENAI_BASE_URL` (mode api, défaut: https://api.openai.com/v1)
+- `OPENAI_API_KEY` (mode api)
+- `VLLM_BASE_URL` (mode local, ex: http://127.0.0.1:8000/v1)
+- `LLM_MODEL_API` (ex: gpt-4o-mini), `LLM_MODEL_LOCAL` (nom du modèle servi par vLLM)
+
+Installation (uv):
+1) `uv sync`
+2) CLI: `uv run sia-categorize --input data/tickets_jira.csv --limit 5`
+3) API: `uv run sia-api` (puis POST `/categorize`)
+
+CLI:
+- Lit CSV/JSONL. Colonnes supportées: `feedback`, `text`, `message`, `comment`, ou `resume`+`description` (Jira FR).
+- Sort sur stdout des lignes JSON (une par ticket) ou écrit un fichier via `--output`.
+
+API:
+- `GET /health` → statut (mode, modèle)
+- `POST /categorize` body: `{ "text": "..." }` ou `{ "texts": ["..."] }`
+
+Résultat (schéma synthétique):
+```
+{
+  "category": str,
+  "subcategories": [str, ...],
+  "sentiment": "positif|neutre|negatif",
+  "emotional_tone": "frustration|satisfaction|curiosite|...",
+  "summary": str,
+  "estimated_impact": "faible|moyen|fort"
+}
+```
+
+Notes de conception:
+- Aucune relance silencieuse: si le JSON du LLM est invalide → erreur explicite.
+- Normalisation/agrégation des catégories et sous-catégories (déduplication simple + synonymes FR/EN).
+- Journalisation sobre et utile.
+
