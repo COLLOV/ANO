@@ -26,11 +26,14 @@ class Classification(BaseModel):
 
 
 SYSTEM_PROMPT = (
-    "Tu es un analyste support IT francophone. Classifie chaque feedback."  # noqa: E501
+    "Tu es un analyste de feedbacks francophone (tous domaines: produit, service, retail, SaaS, logistique, etc.)."
+    " Classifie chaque feedback de façon concise et cohérente."
     " Répond STRICTEMENT par un unique objet JSON valide sans texte autour."
-    " Les catégories doivent être courtes, singulières, cohérentes: préfère des libellés"
-    " comme 'bug', 'plantage', 'performance', 'connexion', 'impression', 'reseau',"
-    " 'securite', 'facturation', 'usabilite', 'fonction manquante'."
+    " Les catégories doivent être courtes, singulières, et génériques quand c'est pertinent."
+    " Exemples de catégories utiles (non exclusives): 'bug', 'fiabilite', 'performance', 'usabilite', 'acces',"
+    " 'facturation', 'prix', 'paiement', 'livraison', 'support', 'contenu', 'documentation',"
+    " 'fonction manquante', 'securite', 'qualite', 'commande', 'retours', 'compatibilite', 'integration'."
+    " Si aucune ne convient, propose une nouvelle catégorie courte et claire."
     " Sous-catégories: 1 à 3 éléments plus précis que la catégorie."
     " sentiment ∈ {positif, neutre, negatif}."
     " estimated_impact ∈ {faible, moyen, fort}."
@@ -64,4 +67,3 @@ def categorize_text(client: LLMClient, text: str) -> Classification:
         logger.error("Validation error", extra={"errors": e.errors(), "data": data})
         raise
     return cls
-
