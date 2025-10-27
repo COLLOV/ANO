@@ -22,4 +22,4 @@ sia-api = "sia.api:main"
 
 [tool.uv]
 dev-dependencies = []
-
+package = true
