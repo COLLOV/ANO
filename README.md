@@ -13,17 +13,19 @@ Env requis (.env):
 
 Installation (uv):
 1) `uv sync`
-2) CLI: `uv run sia-categorize --input data/tickets_jira.csv --limit 5`
-3) API: `uv run sia-api` (puis POST `/categorize`)
+2) CLI: `uv run sia-categorize --input data/tickets_jira.csv --limit 5 --workers 20`
+3) API: `API_WORKERS=20 uv run sia-api` (puis POST `/categorize`)
 
 CLI:
 - Lit CSV/JSONL. Colonnes supportées: `feedback`, `text`, `message`, `comment`, ou `resume`+`description` (Jira FR).
 - Sort sur stdout des lignes JSON (une par ticket) ou écrit un fichier via `--output`.
  - Option `--consolidate`: 2 passes avec consolidation LLM des libellés (catégories/sous‑catégories) pour éviter les doublons/synonymes.
+ - Option `--workers`: parallélise les appels LLM (défaut: 20). Exemple: `--workers 20`.
 
 API:
 - `GET /health` → statut (mode, modèle)
 - `POST /categorize` body: `{ "text": "..." }` ou `{ "texts": ["..."] }` et option `?consolidate=true` pour regrouper les libellés retournés par le LLM.
+ - Démarrage multi‑workers: définir `API_WORKERS=<N>` (ex: `API_WORKERS=20 uv run sia-api`). Pour une mise en prod avancée, vous pouvez aussi utiliser gunicorn: `gunicorn -w 20 -k uvicorn.workers.UvicornWorker sia.api:app`.
 
 Résultat (schéma synthétique):
 ```

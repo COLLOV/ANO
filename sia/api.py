@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 from typing import List, Optional
+import os
 
 from fastapi import FastAPI, Query
 from pydantic import BaseModel
@@ -80,8 +81,14 @@ def categorize(req: CategorizeRequest, consolidate: bool = Query(default=False))
 
 def main() -> None:  # pragma: no cover
     import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=8008, log_level=settings.log_level.lower())
+    workers = int(os.getenv("API_WORKERS", "1"))
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=8008,
+        log_level=settings.log_level.lower(),
+        workers=workers,
+    )
 
 
 if __name__ == "__main__":  # pragma: no cover

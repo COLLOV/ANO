@@ -6,6 +6,7 @@ import json
 import logging
 import sys
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor
 from typing import Iterable, List, Optional
 
 import orjson
@@ -45,6 +46,7 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument("--input", type=Path, default=Path("data/tickets_jira.csv"))
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--limit", type=int, default=0, help="Limiter le nombre de lignes (0 = tout)")
+    parser.add_argument("--workers", type=int, default=20, help="Nombre de workers en parallèle (défaut: 20)")
     parser.add_argument("--consolidate", action="store_true", help="Consolider les catégories/sous-catégories via LLM (2 passes)")
     parser.add_argument("--format", choices=["jsonl", "csv"], default="jsonl", help="Format de sortie (défaut: jsonl)")
     args = parser.parse_args(argv)
@@ -73,76 +75,84 @@ def main(argv: List[str] | None = None) -> int:
     all_subs: set[str] = set()
     input_fieldnames: List[str] = []
 
+    # Pré-lire les lignes (jusqu'à --limit) pour pouvoir paralléliser proprement
+    rows: List[dict] = []
     for row in read_csv_rows(args.input):
-        # Capture des noms de colonnes du CSV original
-        if count == 0 and args.format == "csv":
-            input_fieldnames = list(row.keys())
-            output_fieldnames = input_fieldnames + [
-                "category", "subcategories", "sentiment",
-                "emotional_tone", "summary", "estimated_impact"
-            ]
-            if args.output:
-                csv_writer = csv.DictWriter(out_f, fieldnames=output_fieldnames)
-                csv_writer.writeheader()
-            elif not consolidator:
-                # Pour stdout en CSV sans consolidation
-                csv_writer = csv.DictWriter(sys.stdout, fieldnames=output_fieldnames)
-                csv_writer.writeheader()
+        rows.append(row)
+        if args.limit and len(rows) >= args.limit:
+            break
 
+    if rows and args.format == "csv":
+        input_fieldnames = list(rows[0].keys())
+        output_fieldnames = input_fieldnames + [
+            "category", "subcategories", "sentiment",
+            "emotional_tone", "summary", "estimated_impact"
+        ]
+        if args.output:
+            csv_writer = csv.DictWriter(out_f, fieldnames=output_fieldnames)
+            csv_writer.writeheader()
+        elif not consolidator:
+            csv_writer = csv.DictWriter(sys.stdout, fieldnames=output_fieldnames)
+            csv_writer.writeheader()
+
+    def _process(row: dict):
         text = extract_text(row)
         if not text:
-            continue
+            return None
+        return row, categorize_text(client, text)
 
-        result = categorize_text(client, text)
-        cat, subs = taxo.align(result.category, result.subcategories)
+    logging.info("Traitement en parallèle: %d workers", args.workers)
+    with ThreadPoolExecutor(max_workers=args.workers) as ex:
+        for res in ex.map(_process, rows):
+            if res is None:
+                continue
+            row, result = res
+            cat, subs = taxo.align(result.category, result.subcategories)
 
-        # Fusion des données originales avec les nouvelles colonnes
-        output_row = row.copy()
-        output_row.update({
-            "category": cat,
-            "subcategories": json.dumps(subs) if args.format == "csv" else subs,
-            "sentiment": result.sentiment,
-            "emotional_tone": result.emotional_tone,
-            "summary": result.summary,
-            "estimated_impact": result.estimated_impact,
-        })
-
-        if consolidator:
-            buffered.append({
-                "original_row": row,
+            output_row = row.copy()
+            output_row.update({
                 "category": cat,
-                "subcategories": subs,
+                "subcategories": json.dumps(subs) if args.format == "csv" else subs,
                 "sentiment": result.sentiment,
                 "emotional_tone": result.emotional_tone,
                 "summary": result.summary,
                 "estimated_impact": result.estimated_impact,
             })
-            all_cats.add(cat)
-            for s in subs:
-                all_subs.add(s)
-        else:
-            if args.format == "csv":
-                if csv_writer:
-                    csv_writer.writerow(output_row)
-            else:  # jsonl
-                payload = {
-                    "ticket": row.get("ticket_id") or row.get("id") or count + 1,
+
+            if consolidator:
+                buffered.append({
+                    "original_row": row,
                     "category": cat,
                     "subcategories": subs,
                     "sentiment": result.sentiment,
                     "emotional_tone": result.emotional_tone,
                     "summary": result.summary,
                     "estimated_impact": result.estimated_impact,
-                }
-                data = orjson.dumps(payload)
-                if out_f:
-                    out_f.write(data + b"\n")
-                else:
-                    sys.stdout.buffer.write(data + b"\n")
+                })
+                all_cats.add(cat)
+                for s in subs:
+                    all_subs.add(s)
+            else:
+                if args.format == "csv":
+                    if csv_writer:
+                        csv_writer.writerow(output_row)
+                else:  # jsonl
+                    payload = {
+                        "ticket": row.get("ticket_id") or row.get("id") or count + 1,
+                        "category": cat,
+                        "subcategories": subs,
+                        "sentiment": result.sentiment,
+                        "emotional_tone": result.emotional_tone,
+                        "summary": result.summary,
+                        "estimated_impact": result.estimated_impact,
+                    }
+                    data = orjson.dumps(payload)
+                    if out_f:
+                        out_f.write(data + b"\n")
+                    else:
+                        sys.stdout.buffer.write(data + b"\n")
 
-        count += 1
-        if args.limit and count >= args.limit:
-            break
+            count += 1
 
     # Consolidation
     if consolidator and buffered:
