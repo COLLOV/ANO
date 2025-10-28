@@ -27,6 +27,8 @@ CLI:
 Exemples CLI:
 - CSV → JSONL: `uv run sia-categorize --input data/tickets_jira.csv --limit 5 --format jsonl`
 - XLSX → CSV: `uv run sia-categorize --input ./tickets.xlsx --format csv --output ./out.csv`
+- Sauver l’intermédiaire avant consolidation: `uv run sia-categorize --input ./tickets.xlsx --consolidate --save-intermediate ./stage.jsonl --format jsonl`
+- Reprendre directement à la consolidation: `uv run sia-categorize --resume-consolidate-from ./stage.jsonl --format jsonl --output ./final.jsonl`
 
 API:
 - `GET /health` → statut (mode, modèle)
