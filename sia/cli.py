@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 import os
 from concurrent.futures import ThreadPoolExecutor
-from typing import Iterable, List, Optional, Dict, Any
+from typing import Iterable, List, Optional, Dict, Any, Tuple
 from collections import Counter
 
 import orjson
@@ -90,7 +90,7 @@ def _cli_provided(argv: List[str], opt: str) -> bool:
     return False
 
 
-def load_cli_config(cfg_path: Path, profile: Optional[str]) -> tuple[Dict[str, Any], Dict[str, str]]:
+def load_cli_config(cfg_path: Path, profile: Optional[str]) -> Tuple[Dict[str, Any], Dict[str, str], Optional[str]]:
     """Charge un fichier TOML et retourne (options, env_overrides).
 
     Structure minimale supportée:
@@ -112,16 +112,20 @@ def load_cli_config(cfg_path: Path, profile: Optional[str]) -> tuple[Dict[str, A
     env_over = data.get("env") or {}
     opts: Dict[str, Any] = {}
 
+    profiles = data.get("profiles") or {}
     prof = profile or (data.get("run") or {}).get("profile")
+    # Fallback: si aucun profil explicite, utiliser "default" s'il existe
+    if not prof and "default" in profiles:
+        prof = "default"
+
     if prof:
-        profiles = data.get("profiles") or {}
         if prof not in profiles:
             raise ValueError(f"Profil introuvable dans {cfg_path}: {prof}")
         opts = profiles[prof] or {}
     else:
         # top-level options
         opts = {k: v for k, v in data.items() if k not in {"env", "run", "profiles"}}
-    return opts, {str(k): str(v) for k, v in env_over.items()}
+    return opts, {str(k): str(v) for k, v in env_over.items()}, prof
 
 
 def extract_text(row: dict) -> Optional[str]:
@@ -171,9 +175,11 @@ def main(argv: List[str] | None = None) -> int:
         if default_cfg.exists():
             cfg_path = default_cfg
     if cfg_path:
-        cfg_opts, cfg_env = load_cli_config(cfg_path, args.profile)
+        cfg_opts, cfg_env, cfg_used_profile = load_cli_config(cfg_path, args.profile)
         for k, v in cfg_env.items():
             os.environ[k] = v
+    else:
+        cfg_used_profile = None
 
     settings = load_settings()
     setup_logging(settings.log_level)
@@ -204,6 +210,17 @@ def main(argv: List[str] | None = None) -> int:
     args.consolidation_rounds = choose("consolidation_rounds", args.consolidation_rounds, int)
     args.max_categories = choose("max_categories", args.max_categories, lambda x: int(x) if x is not None else None)
     args.merge_threshold = choose("merge_threshold", args.merge_threshold, float)
+
+    if cfg_path:
+        # Log d'info sur la configuration chargée
+        try:
+            logging.info(
+                "Config chargée: %s (profil=%s)",
+                str(cfg_path),
+                (cfg_used_profile or "<top-level>"),
+            )
+        except Exception:
+            pass
 
     if not args.input.exists() and not args.resume_consolidate_from:
         logging.error("Input file not found: %s", args.input)
