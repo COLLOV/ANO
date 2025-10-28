@@ -6,10 +6,12 @@ import json
 import logging
 import sys
 from pathlib import Path
+import os
 from concurrent.futures import ThreadPoolExecutor
-from typing import Iterable, List, Optional
+from typing import Iterable, List, Optional, Dict, Any
 
 import orjson
+import tomli
 from tqdm import tqdm
 
 from .config import load_settings
@@ -77,6 +79,50 @@ def read_rows(path: Path) -> Iterable[dict]:
         raise ValueError(f"Extension non supportée: {suffix}")
 
 
+def _cli_provided(argv: List[str], opt: str) -> bool:
+    """Retourne True si l'option CLI `opt` (ex: --input) est fournie explicitement."""
+    for i, tok in enumerate(argv):
+        if tok == opt:
+            return True
+        if tok.startswith(opt + "="):
+            return True
+    return False
+
+
+def load_cli_config(cfg_path: Path, profile: Optional[str]) -> tuple[Dict[str, Any], Dict[str, str]]:
+    """Charge un fichier TOML et retourne (options, env_overrides).
+
+    Structure minimale supportée:
+      # top-level
+      input = "..."; output = "..."; format = "jsonl|csv"; consolidate = true|false
+      save_intermediate = "..."; resume_consolidate_from = "..."
+      workers = 20; limit = 0; consolidation_batch_size = 500
+      [env]  # optionnel
+      LLM_MODE = "api"; CLI_WORKERS = "20"; API_WORKERS = "1"
+
+      # OU via profils
+      [profiles.default]
+      input = "..."
+      [run]
+      profile = "default"
+    """
+    with cfg_path.open("rb") as f:
+        data = tomli.loads(f.read().decode("utf-8"))
+    env_over = data.get("env") or {}
+    opts: Dict[str, Any] = {}
+
+    prof = profile or (data.get("run") or {}).get("profile")
+    if prof:
+        profiles = data.get("profiles") or {}
+        if prof not in profiles:
+            raise ValueError(f"Profil introuvable dans {cfg_path}: {prof}")
+        opts = profiles[prof] or {}
+    else:
+        # top-level options
+        opts = {k: v for k, v in data.items() if k not in {"env", "run", "profiles"}}
+    return opts, {str(k): str(v) for k, v in env_over.items()}
+
+
 def extract_text(row: dict) -> Optional[str]:
     for key in ("feedback", "text", "message", "comment"):
         if key in row and row[key]:
@@ -89,6 +135,8 @@ def extract_text(row: dict) -> Optional[str]:
 
 def main(argv: List[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Catégorisation de feedbacks via LLM")
+    parser.add_argument("--config", type=Path, default=None, help="Fichier de configuration TOML (ex: sia.toml)")
+    parser.add_argument("--profile", type=str, default=None, help="Nom de profil dans le fichier de config")
     parser.add_argument("--input", type=Path, default=Path("data/tickets_jira.csv"))
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--limit", type=int, default=0, help="Limiter le nombre de lignes (0 = tout)")
@@ -101,6 +149,16 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument("--consolidation-batch-size", type=int, default=None, help="Taille des lots LLM pour la consolidation (défaut: CONSOLIDATION_BATCH_SIZE)")
     args = parser.parse_args(argv)
 
+    # Gestion config: charger tôt pour injecter des overrides d'env AVANT load_settings()
+    orig_argv = list(argv) if argv is not None else sys.argv[1:]
+    if args.config:
+        cfg_opts, cfg_env = load_cli_config(args.config, args.profile)
+        # overrides d'env explicites
+        for k, v in cfg_env.items():
+            os.environ[k] = v
+    else:
+        cfg_opts = {}
+
     settings = load_settings()
     setup_logging(settings.log_level)
     client = LLMClient(settings)
@@ -110,10 +168,27 @@ def main(argv: List[str] | None = None) -> int:
     if args.resume_consolidate_from and args.limit:
         logging.warning("--limit est ignoré en mode reprise de consolidation")
 
-    if not args.resume_consolidate_from:
-        if not args.input.exists():
-            logging.error("Input file not found: %s", args.input)
-            return 2
+    # Fusion config -> args si l'option n'est pas fournie en CLI
+    def choose(opt: str, current, conv=lambda x: x):
+        if _cli_provided(orig_argv, f"--{opt.replace('_','-')}"):
+            return current
+        if opt in cfg_opts and cfg_opts[opt] is not None:
+            return conv(cfg_opts[opt])
+        return current
+
+    args.input = choose("input", args.input, Path)
+    args.output = choose("output", args.output, lambda x: Path(x) if x else None)
+    args.format = choose("format", args.format, str)
+    args.limit = choose("limit", args.limit, int)
+    args.workers = choose("workers", args.workers, lambda x: int(x) if x is not None else None)
+    args.consolidate = choose("consolidate", args.consolidate, bool)
+    args.save_intermediate = choose("save_intermediate", args.save_intermediate, lambda x: Path(x) if x else None)
+    args.resume_consolidate_from = choose("resume_consolidate_from", args.resume_consolidate_from, lambda x: Path(x) if x else None)
+    args.consolidation_batch_size = choose("consolidation_batch_size", args.consolidation_batch_size, int)
+
+    if not args.input.exists() and not args.resume_consolidate_from:
+        logging.error("Input file not found: %s", args.input)
+        return 2
 
     # Préparation de la sortie
     out_f = None

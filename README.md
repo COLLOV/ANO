@@ -30,7 +30,32 @@ Exemples CLI:
 - XLSX → CSV: `uv run sia-categorize --input ./tickets.xlsx --format csv --output ./out.csv`
 - Sauver l’intermédiaire avant consolidation: `uv run sia-categorize --input ./tickets.xlsx --consolidate --save-intermediate ./stage.jsonl --format jsonl`
 - Reprendre directement à la consolidation: `uv run sia-categorize --resume-consolidate-from ./stage.jsonl --format jsonl --output ./final.jsonl`
- - Régler la taille des lots de consolidation: `uv run sia-categorize --resume-consolidate-from ./stage.jsonl --consolidation-batch-size 400`
+- Régler la taille des lots de consolidation: `uv run sia-categorize --resume-consolidate-from ./stage.jsonl --consolidation-batch-size 400`
+
+Configuration via fichier TOML (optionnel):
+- Créez `sia.toml` à la racine du projet et lancez: `uv run sia-categorize --config sia.toml`.
+- Exemple minimal:
+```
+# sia.toml
+[env]  # optionnel: remplace les variables de .env pour ce run
+LLM_MODE = "api"
+CLI_WORKERS = "16"
+
+# Choix d'un profil par défaut
+[run]
+profile = "default"
+
+[profiles.default]
+input = "data/tickets_jira.csv"
+output = "outputs/out.jsonl"
+format = "jsonl"
+consolidate = true
+save_intermediate = "outputs/stage.jsonl"
+consolidation_batch_size = 400
+workers = 16
+limit = 0
+```
+- Priorité: arguments CLI > config TOML > valeurs par défaut/.env.
 
 API:
 - `GET /health` → statut (mode, modèle)
