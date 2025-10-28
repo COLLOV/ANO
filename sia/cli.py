@@ -96,6 +96,8 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument("--workers", type=int, default=None, help="Nombre de workers en parallèle (défaut: CLI_WORKERS ou 20)")
     parser.add_argument("--consolidate", action="store_true", help="Consolider les catégories/sous-catégories via LLM (2 passes)")
     parser.add_argument("--format", choices=["jsonl", "csv"], default="jsonl", help="Format de sortie (défaut: jsonl)")
+    parser.add_argument("--save-intermediate", type=Path, default=None, help="Sauver les résultats intermédiaires (avant consolidation) en JSONL")
+    parser.add_argument("--resume-consolidate-from", type=Path, default=None, help="Reprendre la consolidation depuis un JSONL intermédiaire")
     args = parser.parse_args(argv)
 
     settings = load_settings()
@@ -104,9 +106,13 @@ def main(argv: List[str] | None = None) -> int:
     taxo = Taxonomy()
     consolidator = LLMTaxonomyConsolidator(client) if args.consolidate else None
 
-    if not args.input.exists():
-        logging.error("Input file not found: %s", args.input)
-        return 2
+    if args.resume_consolidate_from and args.limit:
+        logging.warning("--limit est ignoré en mode reprise de consolidation")
+
+    if not args.resume_consolidate_from:
+        if not args.input.exists():
+            logging.error("Input file not found: %s", args.input)
+            return 2
 
     # Préparation de la sortie
     out_f = None
@@ -124,10 +130,11 @@ def main(argv: List[str] | None = None) -> int:
 
     # Pré-lire les lignes (jusqu'à --limit) pour pouvoir paralléliser proprement
     rows: List[dict] = []
-    for row in read_rows(args.input):
-        rows.append(row)
-        if args.limit and len(rows) >= args.limit:
-            break
+    if not args.resume_consolidate_from:
+        for row in read_rows(args.input):
+            rows.append(row)
+            if args.limit and len(rows) >= args.limit:
+                break
 
     if rows and args.format == "csv":
         # Construire des en-têtes stables: ordre = 1er row puis ajout des nouvelles colonnes rencontrées
@@ -158,60 +165,89 @@ def main(argv: List[str] | None = None) -> int:
         return row, categorize_text(client, text)
 
     worker_count = args.workers if args.workers is not None else settings.cli_workers
-    logging.info("Traitement en parallèle: %d workers", worker_count)
-    with ThreadPoolExecutor(max_workers=worker_count) as ex, tqdm(total=len(rows), desc="Traitement", unit="ligne") as pbar:
-        for res in ex.map(_process, rows):
-            if res is None:
-                pbar.update(1)
-                continue
-            row, result = res
-            cat, subs = taxo.align(result.category, result.subcategories)
+    if not args.resume_consolidate_from:
+        logging.info("Traitement en parallèle: %d workers", worker_count)
+        with ThreadPoolExecutor(max_workers=worker_count) as ex, tqdm(total=len(rows), desc="Traitement", unit="ligne") as pbar:
+            for res in ex.map(_process, rows):
+                if res is None:
+                    pbar.update(1)
+                    continue
+                row, result = res
+                cat, subs = taxo.align(result.category, result.subcategories)
 
-            output_row = row.copy()
-            output_row.update({
-                "category": cat,
-                "subcategories": json.dumps(subs) if args.format == "csv" else subs,
-                "sentiment": result.sentiment,
-                "emotional_tone": result.emotional_tone,
-                "summary": result.summary,
-                "estimated_impact": result.estimated_impact,
-            })
-
-            if consolidator:
-                buffered.append({
-                    "original_row": row,
+                output_row = row.copy()
+                output_row.update({
                     "category": cat,
-                    "subcategories": subs,
+                    "subcategories": json.dumps(subs) if args.format == "csv" else subs,
                     "sentiment": result.sentiment,
                     "emotional_tone": result.emotional_tone,
                     "summary": result.summary,
                     "estimated_impact": result.estimated_impact,
                 })
-                all_cats.add(cat)
-                for s in subs:
-                    all_subs.add(s)
-            else:
-                if args.format == "csv":
-                    if csv_writer:
-                        csv_writer.writerow(output_row)
-                else:  # jsonl
-                    payload = {
-                        "ticket": row.get("ticket_id") or row.get("id") or count + 1,
+
+                if consolidator:
+                    buffered.append({
+                        "original_row": row,
                         "category": cat,
                         "subcategories": subs,
                         "sentiment": result.sentiment,
                         "emotional_tone": result.emotional_tone,
                         "summary": result.summary,
                         "estimated_impact": result.estimated_impact,
-                    }
-                    data = orjson.dumps(payload)
-                    if out_f:
-                        out_f.write(data + b"\n")
-                    else:
-                        sys.stdout.buffer.write(data + b"\n")
+                    })
+                    all_cats.add(cat)
+                    for s in subs:
+                        all_subs.add(s)
+                else:
+                    if args.format == "csv":
+                        if csv_writer:
+                            csv_writer.writerow(output_row)
+                    else:  # jsonl
+                        payload = {
+                            "ticket": row.get("ticket_id") or row.get("id") or count + 1,
+                            "category": cat,
+                            "subcategories": subs,
+                            "sentiment": result.sentiment,
+                            "emotional_tone": result.emotional_tone,
+                            "summary": result.summary,
+                            "estimated_impact": result.estimated_impact,
+                        }
+                        data = orjson.dumps(payload)
+                        if out_f:
+                            out_f.write(data + b"\n")
+                        else:
+                            sys.stdout.buffer.write(data + b"\n")
 
-            count += 1
-            pbar.update(1)
+                count += 1
+                pbar.update(1)
+
+        # Sauvegarder l'intermédiaire si demandé
+        if consolidator and args.save_intermediate:
+            logging.info("Sauvegarde de l'intermédiaire: %s", args.save_intermediate)
+            with args.save_intermediate.open("wb") as f:
+                for item in buffered:
+                    f.write(orjson.dumps(item) + b"\n")
+    else:
+        # Mode reprise: charger le JSONL intermédiaire et configurer consolidation
+        if not args.resume_consolidate_from.exists():
+            logging.error("Fichier intermédiaire introuvable: %s", args.resume_consolidate_from)
+            return 2
+        logging.info("Reprise de la consolidation depuis %s", args.resume_consolidate_from)
+        consolidator = LLMTaxonomyConsolidator(client)
+        buffered = []
+        all_cats.clear(); all_subs.clear()
+        with args.resume_consolidate_from.open("rb") as f:
+            for line in f:
+                if not line.strip():
+                    continue
+                obj = orjson.loads(line)
+                if not isinstance(obj, dict) or "category" not in obj or "subcategories" not in obj:
+                    logging.warning("Entrée intermédiaire invalide ignorée")
+                    continue
+                buffered.append(obj)
+                all_cats.add(obj["category"])
+                for s in obj["subcategories"]:
+                    all_subs.add(s)
 
     # Consolidation
     if consolidator and buffered:
@@ -219,6 +255,18 @@ def main(argv: List[str] | None = None) -> int:
 
         # Initialiser csv_writer pour consolidation si nécessaire
         if args.format == "csv" and not csv_writer:
+            if not input_fieldnames and buffered:
+                # Construire en-têtes depuis original_row (mode reprise)
+                base = list((buffered[0].get("original_row") or {}).keys())
+                seen = set(base)
+                extras: list[str] = []
+                for it in buffered:
+                    orow = it.get("original_row") or {}
+                    for k in orow.keys():
+                        if k not in seen:
+                            seen.add(k)
+                            extras.append(k)
+                input_fieldnames = base + extras
             output_fieldnames = input_fieldnames + [
                 "category", "subcategories", "sentiment",
                 "emotional_tone", "summary", "estimated_impact"
