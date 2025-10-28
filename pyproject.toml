@@ -19,6 +19,7 @@ dependencies = [
   "python-dotenv>=1.0.1",
   "orjson>=3.10.7",
   "openpyxl>=3.1.5",
+  "tqdm>=4.67.1",
 ]
 
 [project.scripts]
