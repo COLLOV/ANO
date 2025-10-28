@@ -136,7 +136,12 @@ def extract_text(row: dict) -> Optional[str]:
 
 def main(argv: List[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Catégorisation de feedbacks via LLM")
-    parser.add_argument("--config", type=Path, default=None, help="Fichier de configuration TOML (ex: sia.toml)")
+    parser.add_argument(
+        "--config",
+        type=Path,
+        default=None,
+        help="Fichier de configuration TOML (défaut: ./sia.toml si présent)",
+    )
     parser.add_argument("--profile", type=str, default=None, help="Nom de profil dans le fichier de config")
     parser.add_argument("--input", type=Path, default=Path("data/tickets_jira.csv"))
     parser.add_argument("--output", type=Path, default=None)
@@ -155,13 +160,20 @@ def main(argv: List[str] | None = None) -> int:
 
     # Gestion config: charger tôt pour injecter des overrides d'env AVANT load_settings()
     orig_argv = list(argv) if argv is not None else sys.argv[1:]
+    cfg_opts: Dict[str, Any] = {}
+    cfg_env: Dict[str, str] = {}
+    cfg_path: Optional[Path] = None
     if args.config:
-        cfg_opts, cfg_env = load_cli_config(args.config, args.profile)
-        # overrides d'env explicites
+        cfg_path = args.config
+    else:
+        # Auto-charge le fichier local `sia.toml` s'il existe
+        default_cfg = Path("sia.toml")
+        if default_cfg.exists():
+            cfg_path = default_cfg
+    if cfg_path:
+        cfg_opts, cfg_env = load_cli_config(cfg_path, args.profile)
         for k, v in cfg_env.items():
             os.environ[k] = v
-    else:
-        cfg_opts = {}
 
     settings = load_settings()
     setup_logging(settings.log_level)

@@ -16,7 +16,7 @@ Env requis (.env):
 
 Installation (uv):
 1) `uv sync`
-2) CLI: `uv run sia-categorize --input data/tickets_jira.csv --limit 5` (défaut: sortie CSV; utilise `CLI_WORKERS` si `--workers` est omis)
+2) CLI (auto‑config): placez un `sia.toml` à la racine, puis lancez simplement `uv run sia-categorize`. Le CLI charge automatiquement `./sia.toml` s’il est présent (priorité: CLI > TOML > .env/défauts).
 3) API: `API_WORKERS=20 uv run sia-api` (puis POST `/categorize`)
 
 CLI:
@@ -36,8 +36,8 @@ Exemples CLI (CSV ↔ CSV):
   - Régler la taille des lots: `--resume-consolidate-from ./stage.jsonl --consolidation-batch-size 400`
   - Multirounds: `--resume-consolidate-from ./stage.jsonl --consolidation-rounds 3`
 
-Configuration via fichier TOML (optionnel):
-- Créez `sia.toml` à la racine du projet et lancez: `uv run sia-categorize --config sia.toml`.
+Configuration via fichier TOML (auto‑chargé):
+- Créez `sia.toml` à la racine du projet. Le CLI le charge par défaut si présent: `uv run sia-categorize`.
 - Exemple minimal:
 ```
 # sia.toml
@@ -59,7 +59,7 @@ consolidation_batch_size = 400
 workers = 16
 limit = 0
 ```
-- Priorité: arguments CLI > config TOML > valeurs par défaut/.env.
+- Priorité: arguments CLI > config TOML (auto‑chargé) > valeurs par défaut/.env.
 
 API:
 - `GET /health` → statut (mode, modèle)
