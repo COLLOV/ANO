@@ -7,6 +7,7 @@
 CLI_WORKERS = "12"
 API_WORKERS = "1"
 CONSOLIDATION_BATCH_SIZE = "400"
+CONSOLIDATION_ROUNDS = "3"
 
 [run]
 profile = "default"
@@ -18,6 +19,7 @@ format = "csv"
 consolidate = true
 save_intermediate = "outputs/stage.jsonl"
 consolidation_batch_size = 400
+consolidation_rounds = 3
 workers = 12
 limit = 0
 
@@ -26,3 +28,4 @@ resume_consolidate_from = "outputs/stage.jsonl"
 output = "outputs/final.csv"
 format = "csv"
 consolidation_batch_size = 400
+consolidation_rounds = 3
