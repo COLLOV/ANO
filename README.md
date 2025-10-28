@@ -19,6 +19,7 @@ Installation (uv):
 CLI:
 - Entrée: CSV ou XLSX (première feuille, première ligne = en‑têtes). Colonnes supportées: `feedback`, `text`, `message`, `comment`, ou `resume`+`description` (Jira FR).
 - Sort sur stdout des lignes JSON (une par ticket) ou écrit un fichier via `--output`.
+ - Affiche une barre de progression (tqdm) pendant le traitement et la consolidation.
  - Option `--consolidate`: 2 passes avec consolidation LLM des libellés (catégories/sous‑catégories) pour éviter les doublons/synonymes.
  - Option `--workers`: parallélise les appels LLM (défaut: 20). Exemple: `--workers 20`.
 
