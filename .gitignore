@@ -15,4 +15,5 @@ data/
 *.egg-info/
 AGENTS.md
 agent.md
+agents.md
 =*
