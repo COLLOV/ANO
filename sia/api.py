@@ -27,6 +27,7 @@ class CategorizeRequest(BaseModel):
 class CategorizeResponseItem(BaseModel):
     category: str
     subcategories: List[str]
+    keywords: List[str]
     sentiment: str
     emotional_tone: str
     summary: str
@@ -60,6 +61,7 @@ def categorize(req: CategorizeRequest, consolidate: bool = Query(default=False))
             CategorizeResponseItem(
                 category=cat,
                 subcategories=subs,
+                keywords=cls.keywords,
                 sentiment=cls.sentiment,
                 emotional_tone=cls.emotional_tone,
                 summary=cls.summary,

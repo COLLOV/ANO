@@ -261,7 +261,7 @@ def main(argv: List[str] | None = None) -> int:
                     extras_ordered.append(k)
         input_fieldnames = base + extras_ordered
         output_fieldnames = input_fieldnames + [
-            "category", "subcategories", "sentiment",
+            "category", "subcategories", "keywords", "sentiment",
             "emotional_tone", "summary", "estimated_impact"
         ]
         if args.output:
@@ -292,6 +292,7 @@ def main(argv: List[str] | None = None) -> int:
                 output_row.update({
                     "category": cat,
                     "subcategories": json.dumps(subs) if args.format == "csv" else subs,
+                    "keywords": json.dumps(result.keywords) if args.format == "csv" else result.keywords,
                     "sentiment": result.sentiment,
                     "emotional_tone": result.emotional_tone,
                     "summary": result.summary,
@@ -303,6 +304,7 @@ def main(argv: List[str] | None = None) -> int:
                         "original_row": row,
                         "category": cat,
                         "subcategories": subs,
+                        "keywords": result.keywords,
                         "sentiment": result.sentiment,
                         "emotional_tone": result.emotional_tone,
                         "summary": result.summary,
@@ -321,6 +323,7 @@ def main(argv: List[str] | None = None) -> int:
                             "ticket": row.get("ticket_id") or row.get("id") or count + 1,
                             "category": cat,
                             "subcategories": subs,
+                            "keywords": result.keywords,
                             "sentiment": result.sentiment,
                             "emotional_tone": result.emotional_tone,
                             "summary": result.summary,
@@ -434,7 +437,7 @@ def main(argv: List[str] | None = None) -> int:
                             extras.append(k)
                 input_fieldnames = base + extras
             output_fieldnames = input_fieldnames + [
-                "category", "subcategories", "sentiment",
+                "category", "subcategories", "keywords", "sentiment",
                 "emotional_tone", "summary", "estimated_impact"
             ]
             csv_writer = csv.DictWriter(sys.stdout, fieldnames=output_fieldnames)
@@ -446,6 +449,7 @@ def main(argv: List[str] | None = None) -> int:
             row = item["original_row"]
             cat = cat_map.get(item["category"], item["category"])
             subs = [sub_map.get(s, s) for s in item["subcategories"]]
+            kw = item.get("keywords", [])
             final_cats.add(cat)
             for s in subs:
                 final_subs.add(s)
@@ -455,6 +459,7 @@ def main(argv: List[str] | None = None) -> int:
                 output_row.update({
                     "category": cat,
                     "subcategories": json.dumps(subs),
+                    "keywords": json.dumps(kw),
                     "sentiment": item["sentiment"],
                     "emotional_tone": item["emotional_tone"],
                     "summary": item["summary"],
@@ -467,6 +472,7 @@ def main(argv: List[str] | None = None) -> int:
                     "ticket": row.get("ticket_id") or row.get("id") or "N/A",
                     "category": cat,
                     "subcategories": subs,
+                    "keywords": kw,
                     "sentiment": item["sentiment"],
                     "emotional_tone": item["emotional_tone"],
                     "summary": item["summary"],

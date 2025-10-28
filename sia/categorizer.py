@@ -19,6 +19,9 @@ class Classification(BaseModel):
     subcategories: List[str] = Field(
         ..., min_length=1, description="1 à 3 sous-catégories plus spécifiques"
     )
+    keywords: List[str] = Field(
+        ..., min_length=1, description="3 à 8 mots-clés courts et pertinents"
+    )
     sentiment: Sentiment
     emotional_tone: str = Field(..., description="tonalité émotionnelle dominante")
     summary: str = Field(..., description="phrase synthétique")
@@ -32,6 +35,7 @@ SYSTEM_PROMPT = (
     " Les catégories doivent être courtes, singulières, et naturelles dans le contexte du feedback."
     " N'utilise aucune liste prédéfinie: invente la meilleure étiquette courte."
     " Sous-catégories: 1 à 3 éléments plus précis que la catégorie."
+    " keywords: 3 à 8 mots-clés en minuscule, sans ponctuation, séparés, pas de doublons (ex: livraison, délai, facture)."
     " sentiment ∈ {positif, neutre, negatif}."
     " estimated_impact ∈ {faible, moyen, fort}."
     " emotional_tone: un seul mot clé (ex: frustration, satisfaction, curiosite, colere, deception, espoir, confusion)."
@@ -43,6 +47,7 @@ def build_user_prompt(text: str) -> str:
     schema_hint = {
         "category": "str",
         "subcategories": ["str", "str"],
+        "keywords": ["str", "str"],
         "sentiment": "positif|neutre|negatif",
         "emotional_tone": "str",
         "summary": "str",

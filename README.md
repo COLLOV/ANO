@@ -72,6 +72,7 @@ Résultat (schéma synthétique):
 {
   "category": str,
   "subcategories": [str, ...],
+  "keywords": [str, ...],
   "sentiment": "positif|neutre|negatif",
   "emotional_tone": "frustration|satisfaction|curiosite|...",
   "summary": str,
