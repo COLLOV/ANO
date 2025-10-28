@@ -147,6 +147,7 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument("--save-intermediate", type=Path, default=None, help="Sauver les résultats intermédiaires (avant consolidation) en JSONL")
     parser.add_argument("--resume-consolidate-from", type=Path, default=None, help="Reprendre la consolidation depuis un JSONL intermédiaire")
     parser.add_argument("--consolidation-batch-size", type=int, default=None, help="Taille des lots LLM pour la consolidation (défaut: CONSOLIDATION_BATCH_SIZE)")
+    parser.add_argument("--consolidation-rounds", type=int, default=None, help="Nombre de passes de consolidation (défaut: CONSOLIDATION_ROUNDS=1)")
     args = parser.parse_args(argv)
 
     # Gestion config: charger tôt pour injecter des overrides d'env AVANT load_settings()
@@ -185,6 +186,7 @@ def main(argv: List[str] | None = None) -> int:
     args.save_intermediate = choose("save_intermediate", args.save_intermediate, lambda x: Path(x) if x else None)
     args.resume_consolidate_from = choose("resume_consolidate_from", args.resume_consolidate_from, lambda x: Path(x) if x else None)
     args.consolidation_batch_size = choose("consolidation_batch_size", args.consolidation_batch_size, int)
+    args.consolidation_rounds = choose("consolidation_rounds", args.consolidation_rounds, int)
 
     if not args.input.exists() and not args.resume_consolidate_from:
         logging.error("Input file not found: %s", args.input)
@@ -342,6 +344,23 @@ def main(argv: List[str] | None = None) -> int:
                 on_progress=pbar.update,
             )
 
+        # Passes supplémentaires pour harmoniser entre lots
+        rounds = args.consolidation_rounds if args.consolidation_rounds is not None else settings.consolidation_rounds
+        for r in range(2, max(2, rounds) + 1):
+            prev_cats = len(set(cat_map.values()))
+            prev_subs = len(set(sub_map.values()))
+            cats2 = set(cat_map.values())
+            subs2 = set(sub_map.values())
+            total_batches2 = _nb_batches(len(cats2), batch_size) + _nb_batches(len(subs2), batch_size)
+            if total_batches2 <= 0:
+                break
+            with tqdm(total=total_batches2, desc=f"Consolidation LLM (round {r})", unit="lot") as pbar2:
+                cat_map2, sub_map2 = consolidator.consolidate_batched(cats2, subs2, batch_size=batch_size, on_progress=pbar2.update)
+            cat_map = {k: cat_map2.get(v, v) for k, v in cat_map.items()}
+            sub_map = {k: sub_map2.get(v, v) for k, v in sub_map.items()}
+            if len(set(cat_map.values())) == prev_cats and len(set(sub_map.values())) == prev_subs:
+                break
+
         # Initialiser csv_writer pour consolidation si nécessaire
         if args.format == "csv" and not csv_writer:
             if not input_fieldnames and buffered:
@@ -396,9 +415,10 @@ def main(argv: List[str] | None = None) -> int:
                 else:
                     sys.stdout.buffer.write(data + b"\n")
 
+    processed_total = count if count > 0 else (len(buffered) if consolidator else 0)
     logging.info(
         "Processed %d feedback(s). Categories=%d, Subcategories(total)=%d",
-        count,
+        processed_total,
         len(taxo.categories),
         sum(len(v) for v in taxo.subs_by_cat.values()),
     )

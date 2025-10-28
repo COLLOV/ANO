@@ -17,6 +17,7 @@ class Settings:
     cli_workers: int
     api_workers: int
     consolidation_batch_size: int
+    consolidation_rounds: int
 
 
 def load_settings() -> Settings:
@@ -52,6 +53,11 @@ def load_settings() -> Settings:
     except ValueError:
         raise ValueError("CONSOLIDATION_BATCH_SIZE must be an integer")
 
+    try:
+        consolidation_rounds = int(os.getenv("CONSOLIDATION_ROUNDS", "1"))
+    except ValueError:
+        raise ValueError("CONSOLIDATION_ROUNDS must be an integer")
+
     if llm_mode == "api" and not openai_api_key:
         raise RuntimeError("OPENAI_API_KEY is required in API mode")
 
@@ -69,4 +75,5 @@ def load_settings() -> Settings:
         cli_workers=cli_workers,
         api_workers=api_workers,
         consolidation_batch_size=consolidation_batch_size,
+        consolidation_rounds=consolidation_rounds,
     )
