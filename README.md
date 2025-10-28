@@ -37,7 +37,8 @@ Exemples CLI (CSV ↔ CSV):
   - Multirounds: `--resume-consolidate-from ./stage.jsonl --consolidation-rounds 3`
 
 Configuration via fichier TOML (auto‑chargé):
-- Créez `sia.toml` à la racine du projet. Le CLI le charge par défaut si présent: `uv run sia-categorize`.
+- Copiez l’exemple: `cp sia.toml.exemple sia.toml`. Le fichier `sia.toml` est ignoré par Git (local par projet).
+- Le CLI charge `./sia.toml` automatiquement si présent: `uv run sia-categorize`.
 - Exemple minimal:
 ```
 # sia.toml
