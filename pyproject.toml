@@ -20,6 +20,7 @@ dependencies = [
   "orjson>=3.10.7",
   "openpyxl>=3.1.5",
   "tqdm>=4.67.1",
+  "tomli>=2.3.0",
 ]
 
 [project.scripts]
