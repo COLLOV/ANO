@@ -185,7 +185,8 @@ def main(argv: List[str] | None = None) -> int:
     setup_logging(settings.log_level)
     client = LLMClient(settings)
     taxo = Taxonomy()
-    consolidator = LLMTaxonomyConsolidator(client) if args.consolidate else None
+    # Le choix de consolidation peut être modifié par le TOML/CLI plus bas; on (re)calculera après merge des options.
+    consolidator = None
 
     if args.resume_consolidate_from and args.limit:
         logging.warning("--limit est ignoré en mode reprise de consolidation")
@@ -210,6 +211,9 @@ def main(argv: List[str] | None = None) -> int:
     args.consolidation_rounds = choose("consolidation_rounds", args.consolidation_rounds, int)
     args.max_categories = choose("max_categories", args.max_categories, lambda x: int(x) if x is not None else None)
     args.merge_threshold = choose("merge_threshold", args.merge_threshold, float)
+
+    # Maintenant que les options sont fusionnées (CLI > TOML > défauts), configurer le consolidator
+    consolidator = LLMTaxonomyConsolidator(client) if args.consolidate else None
 
     if cfg_path:
         # Log d'info sur la configuration chargée
