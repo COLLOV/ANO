@@ -281,42 +281,42 @@ def main(argv: List[str] | None = None) -> int:
                     "estimated_impact": result.estimated_impact,
                 })
 
-            if consolidator:
-                buffered.append({
-                    "original_row": row,
-                    "category": cat,
-                    "subcategories": subs,
-                    "sentiment": result.sentiment,
-                    "emotional_tone": result.emotional_tone,
-                    "summary": result.summary,
-                    "estimated_impact": result.estimated_impact,
-                })
-                all_cats.add(cat)
-                for s in subs:
-                    all_subs.add(s)
-                cat_freq[cat] += 1
-            else:
-                if args.format == "csv":
-                    if csv_writer:
-                        csv_writer.writerow(output_row)
-                else:  # jsonl
-                    payload = {
-                        "ticket": row.get("ticket_id") or row.get("id") or count + 1,
+                if consolidator:
+                    buffered.append({
+                        "original_row": row,
                         "category": cat,
                         "subcategories": subs,
                         "sentiment": result.sentiment,
                         "emotional_tone": result.emotional_tone,
                         "summary": result.summary,
                         "estimated_impact": result.estimated_impact,
-                    }
-                    data = orjson.dumps(payload)
-                    if out_f:
-                        out_f.write(data + b"\n")
-                    else:
-                        sys.stdout.buffer.write(data + b"\n")
+                    })
+                    all_cats.add(cat)
+                    for s in subs:
+                        all_subs.add(s)
+                    cat_freq[cat] += 1
+                else:
+                    if args.format == "csv":
+                        if csv_writer:
+                            csv_writer.writerow(output_row)
+                    else:  # jsonl
+                        payload = {
+                            "ticket": row.get("ticket_id") or row.get("id") or count + 1,
+                            "category": cat,
+                            "subcategories": subs,
+                            "sentiment": result.sentiment,
+                            "emotional_tone": result.emotional_tone,
+                            "summary": result.summary,
+                            "estimated_impact": result.estimated_impact,
+                        }
+                        data = orjson.dumps(payload)
+                        if out_f:
+                            out_f.write(data + b"\n")
+                        else:
+                            sys.stdout.buffer.write(data + b"\n")
 
-                count += 1
-                pbar.update(1)
+                    count += 1
+                    pbar.update(1)
 
         # Sauvegarder l'intermédiaire si demandé
         if consolidator and args.save_intermediate:
