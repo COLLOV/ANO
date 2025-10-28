@@ -129,7 +129,16 @@ def main(argv: List[str] | None = None) -> int:
             break
 
     if rows and args.format == "csv":
-        input_fieldnames = list(rows[0].keys())
+        # Construire des en-têtes stables: ordre = 1er row puis ajout des nouvelles colonnes rencontrées
+        base = list(rows[0].keys())
+        seen = set(base)
+        extras_ordered: list[str] = []
+        for r in rows:
+            for k in r.keys():
+                if k not in seen:
+                    seen.add(k)
+                    extras_ordered.append(k)
+        input_fieldnames = base + extras_ordered
         output_fieldnames = input_fieldnames + [
             "category", "subcategories", "sentiment",
             "emotional_tone", "summary", "estimated_impact"
