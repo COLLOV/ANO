@@ -10,10 +10,11 @@ Env requis (.env):
 - `OPENAI_API_KEY` (mode api)
 - `VLLM_BASE_URL` (mode local, ex: http://127.0.0.1:8000/v1)
 - `LLM_MODEL_API` (ex: gpt-4o-mini), `LLM_MODEL_LOCAL` (nom du modèle servi par vLLM)
+ - `CLI_WORKERS` (défaut 20) et `API_WORKERS` (défaut 1) pour régler les workers sans arguments.
 
 Installation (uv):
 1) `uv sync`
-2) CLI: `uv run sia-categorize --input data/tickets_jira.csv --limit 5 --workers 20`
+2) CLI: `uv run sia-categorize --input data/tickets_jira.csv --limit 5` (utilise `CLI_WORKERS` si `--workers` est omis)
 3) API: `API_WORKERS=20 uv run sia-api` (puis POST `/categorize`)
 
 CLI:
@@ -30,7 +31,7 @@ Exemples CLI:
 API:
 - `GET /health` → statut (mode, modèle)
 - `POST /categorize` body: `{ "text": "..." }` ou `{ "texts": ["..."] }` et option `?consolidate=true` pour regrouper les libellés retournés par le LLM.
- - Démarrage multi‑workers: définir `API_WORKERS=<N>` (ex: `API_WORKERS=20 uv run sia-api`). Pour une mise en prod avancée, vous pouvez aussi utiliser gunicorn: `gunicorn -w 20 -k uvicorn.workers.UvicornWorker sia.api:app`.
+ - Démarrage multi‑workers: définir `API_WORKERS=<N>` dans `.env` (ou inline: `API_WORKERS=20 uv run sia-api`). Pour une mise en prod avancée, vous pouvez aussi utiliser gunicorn: `gunicorn -w 20 -k uvicorn.workers.UvicornWorker sia.api:app`.
 
 Résultat (schéma synthétique):
 ```
