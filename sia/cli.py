@@ -222,6 +222,13 @@ def main(argv: List[str] | None = None) -> int:
         except Exception:
             pass
 
+    # Journaliser l'état de consolidation pour éviter toute ambiguïté
+    logging.info(
+        "Consolidation %s (source: %s)",
+        "ON" if args.consolidate else "OFF",
+        "CLI" if _cli_provided(orig_argv, "--consolidate") else ("TOML" if cfg_path and ("consolidate" in cfg_opts) else "défaut"),
+    )
+
     if not args.input.exists() and not args.resume_consolidate_from:
         logging.error("Input file not found: %s", args.input)
         return 2
