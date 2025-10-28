@@ -346,8 +346,8 @@ def main(argv: List[str] | None = None) -> int:
                         else:
                             sys.stdout.buffer.write(data + b"\n")
 
-                    count += 1
-                    pbar.update(1)
+                count += 1
+                pbar.update(1)
 
         # Sauvegarder l'intermédiaire si demandé
         if consolidator and args.save_intermediate:
