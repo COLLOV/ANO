@@ -451,7 +451,9 @@ def main(argv: List[str] | None = None) -> int:
                 "category", "subcategories", "keywords", "sentiment",
                 "emotional_tone", "summary", "estimated_impact"
             ]
-            csv_writer = csv.DictWriter(sys.stdout, fieldnames=output_fieldnames)
+            # Écrire dans le fichier demandé s'il existe, sinon stdout
+            target = out_f if out_f else sys.stdout
+            csv_writer = csv.DictWriter(target, fieldnames=output_fieldnames)
             csv_writer.writeheader()
 
         final_cats: set[str] = set()
