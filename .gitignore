@@ -12,3 +12,5 @@ __pycache__/
 outputs/
 data/
 *.egg-info/
+AGENTS.md
+agent.md
