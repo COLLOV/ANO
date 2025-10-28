@@ -17,10 +17,14 @@ Installation (uv):
 3) API: `API_WORKERS=20 uv run sia-api` (puis POST `/categorize`)
 
 CLI:
-- Lit CSV/JSONL. Colonnes supportées: `feedback`, `text`, `message`, `comment`, ou `resume`+`description` (Jira FR).
+- Entrée: CSV ou XLSX (première feuille, première ligne = en‑têtes). Colonnes supportées: `feedback`, `text`, `message`, `comment`, ou `resume`+`description` (Jira FR).
 - Sort sur stdout des lignes JSON (une par ticket) ou écrit un fichier via `--output`.
  - Option `--consolidate`: 2 passes avec consolidation LLM des libellés (catégories/sous‑catégories) pour éviter les doublons/synonymes.
  - Option `--workers`: parallélise les appels LLM (défaut: 20). Exemple: `--workers 20`.
+
+Exemples CLI:
+- CSV → JSONL: `uv run sia-categorize --input data/tickets_jira.csv --limit 5 --format jsonl`
+- XLSX → CSV: `uv run sia-categorize --input ./tickets.xlsx --format csv --output ./out.csv`
 
 API:
 - `GET /health` → statut (mode, modèle)
