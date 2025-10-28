@@ -98,6 +98,7 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument("--format", choices=["jsonl", "csv"], default="jsonl", help="Format de sortie (défaut: jsonl)")
     parser.add_argument("--save-intermediate", type=Path, default=None, help="Sauver les résultats intermédiaires (avant consolidation) en JSONL")
     parser.add_argument("--resume-consolidate-from", type=Path, default=None, help="Reprendre la consolidation depuis un JSONL intermédiaire")
+    parser.add_argument("--consolidation-batch-size", type=int, default=None, help="Taille des lots LLM pour la consolidation (défaut: CONSOLIDATION_BATCH_SIZE)")
     args = parser.parse_args(argv)
 
     settings = load_settings()
@@ -251,7 +252,20 @@ def main(argv: List[str] | None = None) -> int:
 
     # Consolidation
     if consolidator and buffered:
-        cat_map, sub_map = consolidator.consolidate(all_cats, all_subs)
+        batch_size = args.consolidation_batch_size if args.consolidation_batch_size is not None else settings.consolidation_batch_size
+        # Calcul du nombre de lots pour la barre de progression
+        def _nb_batches(n: int, b: int) -> int:
+            return (n + max(1, b) - 1) // max(1, b)
+        total_batches = _nb_batches(len(all_cats), batch_size) + _nb_batches(len(all_subs), batch_size)
+        if total_batches <= 0:
+            total_batches = 1
+        with tqdm(total=total_batches, desc="Consolidation LLM", unit="lot") as pbar:
+            cat_map, sub_map = consolidator.consolidate_batched(
+                all_cats,
+                all_subs,
+                batch_size=batch_size,
+                on_progress=pbar.update,
+            )
 
         # Initialiser csv_writer pour consolidation si nécessaire
         if args.format == "csv" and not csv_writer:

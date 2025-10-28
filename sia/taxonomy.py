@@ -54,6 +54,7 @@ class LLMTaxonomyConsolidator:
         " en minuscule, singulier si possible. Pas de texte hors JSON."
         " Réponds avec un objet JSON: {\"category_mapping\": {...}, \"subcategory_mapping\": {...}}."
         " Les clés sont les libellés d'entrée EXACTS, les valeurs sont les versions canoniques."
+        " Si des mappings existants sont fournis (existing_*_mapping), tu les respectes et tu LES ÉTENDS sans casser les choix déjà faits."
     )
 
     def __init__(self, client: LLMClient):
@@ -76,4 +77,75 @@ class LLMTaxonomyConsolidator:
         sub_map = data.get("subcategory_mapping") or {}
         if not isinstance(cat_map, dict) or not isinstance(sub_map, dict):
             raise ValueError("LLM consolidation: mappings manquants ou invalides")
+        return cat_map, sub_map
+
+    def consolidate_batched(
+        self,
+        categories: Set[str],
+        subcategories: Set[str],
+        *,
+        batch_size: int = 500,
+        on_progress: callable | None = None,
+    ) -> Tuple[Dict[str, str], Dict[str, str]]:
+        """Consolider en plusieurs appels LLM pour éviter les dépassements.
+
+        La consolidation est progressive: on fournit les mappings existants à chaque lot
+        pour préserver la cohérence cross-batch.
+        """
+        def chunks(lst: List[str], size: int):
+            for i in range(0, len(lst), size):
+                yield lst[i : i + size]
+
+        cat_map: Dict[str, str] = {}
+        sub_map: Dict[str, str] = {}
+
+        cats = sorted(categories)
+        subs = sorted(subcategories)
+
+        # Catégories par lots
+        for cat_chunk in chunks(cats, max(1, batch_size)):
+            payload = {
+                "categories": cat_chunk,
+                "subcategories": [],
+                "existing_category_mapping": cat_map,
+                "existing_subcategory_mapping": sub_map,
+                "regles": [
+                    "utiliser des libellés courts",
+                    "minuscule",
+                    "singulier",
+                    "fusionner les synonymes évidents",
+                    "ne pas inventer de nouvelles catégories hors consolidation",
+                ],
+            }
+            data = self.client.chat_json(self.SYSTEM, [{"role": "user", "content": str(payload)}])
+            part_cat = data.get("category_mapping") or {}
+            if not isinstance(part_cat, dict):
+                raise ValueError("LLM consolidation (cat batch): mapping invalide")
+            cat_map.update(part_cat)
+            if on_progress:
+                on_progress(1)
+
+        # Sous-catégories par lots
+        for sub_chunk in chunks(subs, max(1, batch_size)):
+            payload = {
+                "categories": [],
+                "subcategories": sub_chunk,
+                "existing_category_mapping": cat_map,
+                "existing_subcategory_mapping": sub_map,
+                "regles": [
+                    "utiliser des libellés courts",
+                    "minuscule",
+                    "singulier",
+                    "fusionner les synonymes évidents",
+                    "ne pas inventer de nouvelles catégories hors consolidation",
+                ],
+            }
+            data = self.client.chat_json(self.SYSTEM, [{"role": "user", "content": str(payload)}])
+            part_sub = data.get("subcategory_mapping") or {}
+            if not isinstance(part_sub, dict):
+                raise ValueError("LLM consolidation (sub batch): mapping invalide")
+            sub_map.update(part_sub)
+            if on_progress:
+                on_progress(1)
+
         return cat_map, sub_map

@@ -11,6 +11,7 @@ Env requis (.env):
 - `VLLM_BASE_URL` (mode local, ex: http://127.0.0.1:8000/v1)
 - `LLM_MODEL_API` (ex: gpt-4o-mini), `LLM_MODEL_LOCAL` (nom du modèle servi par vLLM)
  - `CLI_WORKERS` (défaut 20) et `API_WORKERS` (défaut 1) pour régler les workers sans arguments.
+ - `CONSOLIDATION_BATCH_SIZE` (défaut 500) pour limiter la taille des lots LLM pendant la consolidation.
 
 Installation (uv):
 1) `uv sync`
@@ -29,6 +30,7 @@ Exemples CLI:
 - XLSX → CSV: `uv run sia-categorize --input ./tickets.xlsx --format csv --output ./out.csv`
 - Sauver l’intermédiaire avant consolidation: `uv run sia-categorize --input ./tickets.xlsx --consolidate --save-intermediate ./stage.jsonl --format jsonl`
 - Reprendre directement à la consolidation: `uv run sia-categorize --resume-consolidate-from ./stage.jsonl --format jsonl --output ./final.jsonl`
+ - Régler la taille des lots de consolidation: `uv run sia-categorize --resume-consolidate-from ./stage.jsonl --consolidation-batch-size 400`
 
 API:
 - `GET /health` → statut (mode, modèle)
