@@ -144,7 +144,7 @@ def main(argv: List[str] | None = None) -> int:
     # Si non fourni, on prendra la valeur depuis .env (CLI_WORKERS)
     parser.add_argument("--workers", type=int, default=None, help="Nombre de workers en parallèle (défaut: CLI_WORKERS ou 20)")
     parser.add_argument("--consolidate", action="store_true", help="Consolider les catégories/sous-catégories via LLM (2 passes)")
-    parser.add_argument("--format", choices=["jsonl", "csv"], default="jsonl", help="Format de sortie (défaut: jsonl)")
+    parser.add_argument("--format", choices=["jsonl", "csv"], default="csv", help="Format de sortie (défaut: csv)")
     parser.add_argument("--save-intermediate", type=Path, default=None, help="Sauver les résultats intermédiaires (avant consolidation) en JSONL")
     parser.add_argument("--resume-consolidate-from", type=Path, default=None, help="Reprendre la consolidation depuis un JSONL intermédiaire")
     parser.add_argument("--consolidation-batch-size", type=int, default=None, help="Taille des lots LLM pour la consolidation (défaut: CONSOLIDATION_BATCH_SIZE)")

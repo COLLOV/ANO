@@ -16,7 +16,7 @@ Env requis (.env):
 
 Installation (uv):
 1) `uv sync`
-2) CLI: `uv run sia-categorize --input data/tickets_jira.csv --limit 5` (utilise `CLI_WORKERS` si `--workers` est omis)
+2) CLI: `uv run sia-categorize --input data/tickets_jira.csv --limit 5` (défaut: sortie CSV; utilise `CLI_WORKERS` si `--workers` est omis)
 3) API: `API_WORKERS=20 uv run sia-api` (puis POST `/categorize`)
 
 CLI:
@@ -26,13 +26,15 @@ CLI:
  - Option `--consolidate`: 2 passes avec consolidation LLM des libellés (catégories/sous‑catégories) pour éviter les doublons/synonymes.
  - Option `--workers`: parallélise les appels LLM (défaut: 20). Exemple: `--workers 20`.
 
-Exemples CLI:
-- CSV → JSONL: `uv run sia-categorize --input data/tickets_jira.csv --limit 5 --format jsonl`
-- XLSX → CSV: `uv run sia-categorize --input ./tickets.xlsx --format csv --output ./out.csv`
-- Sauver l’intermédiaire avant consolidation: `uv run sia-categorize --input ./tickets.xlsx --consolidate --save-intermediate ./stage.jsonl --format jsonl`
-- Reprendre directement à la consolidation: `uv run sia-categorize --resume-consolidate-from ./stage.jsonl --format jsonl --output ./final.jsonl`
- - Régler la taille des lots de consolidation: `uv run sia-categorize --resume-consolidate-from ./stage.jsonl --consolidation-batch-size 400`
- - Faire plusieurs passes de consolidation: `uv run sia-categorize --resume-consolidate-from ./stage.jsonl --consolidation-rounds 3`
+Exemples CLI (CSV ↔ CSV):
+- CSV → CSV (stdout): `uv run sia-categorize --input data/tickets_jira.csv --limit 5`
+- CSV → CSV (fichier): `uv run sia-categorize --input data/tickets_jira.csv --output ./out.csv`
+- XLSX → CSV: `uv run sia-categorize --input ./tickets.xlsx --output ./out.csv`
+- Consolidation avec export final CSV: `uv run sia-categorize --input ./tickets.csv --consolidate --output ./final.csv`
+  - Optionnel: sauver l’intermédiaire pour reprise (format interne JSONL): `--save-intermediate ./stage.jsonl`
+  - Reprendre une consolidation: `--resume-consolidate-from ./stage.jsonl --output ./final.csv`
+  - Régler la taille des lots: `--resume-consolidate-from ./stage.jsonl --consolidation-batch-size 400`
+  - Multirounds: `--resume-consolidate-from ./stage.jsonl --consolidation-rounds 3`
 
 Configuration via fichier TOML (optionnel):
 - Créez `sia.toml` à la racine du projet et lancez: `uv run sia-categorize --config sia.toml`.
@@ -49,10 +51,10 @@ profile = "default"
 
 [profiles.default]
 input = "data/tickets_jira.csv"
-output = "outputs/out.jsonl"
-format = "jsonl"
+output = "outputs/out.csv"
+format = "csv"
 consolidate = true
-save_intermediate = "outputs/stage.jsonl"
+save_intermediate = "outputs/stage.jsonl"  # format interne JSONL uniquement pour la reprise
 consolidation_batch_size = 400
 workers = 16
 limit = 0
