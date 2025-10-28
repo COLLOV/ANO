@@ -10,6 +10,7 @@ from concurrent.futures import ThreadPoolExecutor
 from typing import Iterable, List, Optional
 
 import orjson
+from tqdm import tqdm
 
 from .config import load_settings
 from .llm_client import LLMClient
@@ -147,9 +148,10 @@ def main(argv: List[str] | None = None) -> int:
         return row, categorize_text(client, text)
 
     logging.info("Traitement en parallèle: %d workers", args.workers)
-    with ThreadPoolExecutor(max_workers=args.workers) as ex:
+    with ThreadPoolExecutor(max_workers=args.workers) as ex, tqdm(total=len(rows), desc="Traitement", unit="ligne") as pbar:
         for res in ex.map(_process, rows):
             if res is None:
+                pbar.update(1)
                 continue
             row, result = res
             cat, subs = taxo.align(result.category, result.subcategories)
@@ -198,6 +200,7 @@ def main(argv: List[str] | None = None) -> int:
                         sys.stdout.buffer.write(data + b"\n")
 
             count += 1
+            pbar.update(1)
 
     # Consolidation
     if consolidator and buffered:
@@ -212,7 +215,7 @@ def main(argv: List[str] | None = None) -> int:
             csv_writer = csv.DictWriter(sys.stdout, fieldnames=output_fieldnames)
             csv_writer.writeheader()
 
-        for item in buffered:
+        for item in tqdm(buffered, desc="Consolidation", unit="ligne"):
             row = item["original_row"]
             cat = cat_map.get(item["category"], item["category"])
             subs = [sub_map.get(s, s) for s in item["subcategories"]]
