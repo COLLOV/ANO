@@ -13,8 +13,8 @@ profile = "default"
 
 [profiles.default]
 input = "data/tickets_jira.csv"
-output = "outputs/out.jsonl"
-format = "jsonl"
+output = "outputs/out.csv"
+format = "csv"
 consolidate = true
 save_intermediate = "outputs/stage.jsonl"
 consolidation_batch_size = 400
@@ -23,6 +23,6 @@ limit = 0
 
 [profiles.resume]
 resume_consolidate_from = "outputs/stage.jsonl"
-output = "outputs/final.jsonl"
-format = "jsonl"
+output = "outputs/final.csv"
+format = "csv"
 consolidation_batch_size = 400
