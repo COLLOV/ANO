@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 import unicodedata
 from dataclasses import dataclass, field
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Set, Tuple, Iterable, Optional
 
 from .llm_client import LLMClient
 
@@ -20,6 +20,85 @@ def normalize(s: str) -> str:
 def canonicalize(term: str) -> str:
     # Minimal normalization only; keep taxonomy LLM-driven.
     return normalize(term)
+
+
+def heuristic_category_mapping(
+    categories: Iterable[str],
+    freq: Dict[str, int],
+    *,
+    synonyms: Optional[Dict[str, List[str]]] = None,
+    max_categories: Optional[int] = None,
+    threshold: float = 0.86,
+) -> Dict[str, str]:
+    """Build a fast heuristic mapping to reduce category variants before LLM.
+
+    - Applies synonym rules (canonical -> [synonyms])
+    - Greedy clustering by similarity with difflib
+    - Optionally constrains to top-K frequent canonical categories
+    """
+    import difflib
+
+    cats = list(set(categories))
+    if not cats:
+        return {}
+
+    # Normalize synonyms dict
+    syn_map: Dict[str, str] = {}
+    if synonyms:
+        for canon, syns in synonyms.items():
+            c = canonicalize(canon)
+            syn_map[c] = c  # self mapping
+            for s in syns:
+                syn_map[canonicalize(s)] = c
+
+    # Seed canonical set by frequency (top-K if provided)
+    sorted_by_freq = sorted(cats, key=lambda x: (-freq.get(x, 0), x))
+    if max_categories and max_categories > 0:
+        seeds = sorted_by_freq[: max_categories]
+    else:
+        seeds = [sorted_by_freq[0]]
+
+    canonical: List[str] = []
+    mapping: Dict[str, str] = {}
+
+    # Apply synonyms first
+    for cat in cats:
+        cn = canonicalize(cat)
+        if cn in syn_map:
+            mapping[cat] = syn_map[cn]
+
+    # Initialize canonical with seeds
+    for s in seeds:
+        if s not in mapping:
+            canonical.append(s)
+            mapping[s] = s
+
+    def best_match(target: str, candidates: List[str]) -> Tuple[str, float]:
+        best, score = target, 0.0
+        for c in candidates:
+            r = difflib.SequenceMatcher(None, target, c).ratio()
+            if r > score:
+                best, score = c, r
+        return best, score
+
+    # Greedy clustering
+    for cat in cats:
+        if cat in mapping:
+            continue
+        if canonical:
+            bm, sc = best_match(cat, canonical)
+            if sc >= threshold:
+                mapping[cat] = bm
+                continue
+        # New canonical if allowed (no max) else map to closest seed anyway
+        if not max_categories:
+            canonical.append(cat)
+            mapping[cat] = cat
+        else:
+            bm, _ = best_match(cat, canonical)
+            mapping[cat] = bm
+
+    return mapping
 
 
 @dataclass
@@ -86,6 +165,8 @@ class LLMTaxonomyConsolidator:
         *,
         batch_size: int = 500,
         on_progress: callable | None = None,
+        seed_category_mapping: Optional[Dict[str, str]] = None,
+        seed_subcategory_mapping: Optional[Dict[str, str]] = None,
     ) -> Tuple[Dict[str, str], Dict[str, str]]:
         """Consolider en plusieurs appels LLM pour éviter les dépassements.
 
@@ -96,8 +177,8 @@ class LLMTaxonomyConsolidator:
             for i in range(0, len(lst), size):
                 yield lst[i : i + size]
 
-        cat_map: Dict[str, str] = {}
-        sub_map: Dict[str, str] = {}
+        cat_map: Dict[str, str] = dict(seed_category_mapping or {})
+        sub_map: Dict[str, str] = dict(seed_subcategory_mapping or {})
 
         cats = sorted(categories)
         subs = sorted(subcategories)

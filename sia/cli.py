@@ -9,6 +9,7 @@ from pathlib import Path
 import os
 from concurrent.futures import ThreadPoolExecutor
 from typing import Iterable, List, Optional, Dict, Any
+from collections import Counter
 
 import orjson
 import tomli
@@ -148,6 +149,8 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument("--resume-consolidate-from", type=Path, default=None, help="Reprendre la consolidation depuis un JSONL intermédiaire")
     parser.add_argument("--consolidation-batch-size", type=int, default=None, help="Taille des lots LLM pour la consolidation (défaut: CONSOLIDATION_BATCH_SIZE)")
     parser.add_argument("--consolidation-rounds", type=int, default=None, help="Nombre de passes de consolidation (défaut: CONSOLIDATION_ROUNDS=1)")
+    parser.add_argument("--max-categories", type=int, default=None, help="Nombre maximum de catégories cibles (fusion heuristique préalable)")
+    parser.add_argument("--merge-threshold", type=float, default=None, help="Seuil de similarité (0-1) pour la fusion heuristique préalable")
     args = parser.parse_args(argv)
 
     # Gestion config: charger tôt pour injecter des overrides d'env AVANT load_settings()
@@ -187,6 +190,8 @@ def main(argv: List[str] | None = None) -> int:
     args.resume_consolidate_from = choose("resume_consolidate_from", args.resume_consolidate_from, lambda x: Path(x) if x else None)
     args.consolidation_batch_size = choose("consolidation_batch_size", args.consolidation_batch_size, int)
     args.consolidation_rounds = choose("consolidation_rounds", args.consolidation_rounds, int)
+    args.max_categories = choose("max_categories", args.max_categories, lambda x: int(x) if x is not None else None)
+    args.merge_threshold = choose("merge_threshold", args.merge_threshold, float)
 
     if not args.input.exists() and not args.resume_consolidate_from:
         logging.error("Input file not found: %s", args.input)
@@ -204,6 +209,7 @@ def main(argv: List[str] | None = None) -> int:
     buffered: List[dict] = []
     all_cats: set[str] = set()
     all_subs: set[str] = set()
+    cat_freq: Counter[str] = Counter()
     input_fieldnames: List[str] = []
 
     # Pré-lire les lignes (jusqu'à --limit) pour pouvoir paralléliser proprement
@@ -263,38 +269,39 @@ def main(argv: List[str] | None = None) -> int:
                     "estimated_impact": result.estimated_impact,
                 })
 
-                if consolidator:
-                    buffered.append({
-                        "original_row": row,
+            if consolidator:
+                buffered.append({
+                    "original_row": row,
+                    "category": cat,
+                    "subcategories": subs,
+                    "sentiment": result.sentiment,
+                    "emotional_tone": result.emotional_tone,
+                    "summary": result.summary,
+                    "estimated_impact": result.estimated_impact,
+                })
+                all_cats.add(cat)
+                for s in subs:
+                    all_subs.add(s)
+                cat_freq[cat] += 1
+            else:
+                if args.format == "csv":
+                    if csv_writer:
+                        csv_writer.writerow(output_row)
+                else:  # jsonl
+                    payload = {
+                        "ticket": row.get("ticket_id") or row.get("id") or count + 1,
                         "category": cat,
                         "subcategories": subs,
                         "sentiment": result.sentiment,
                         "emotional_tone": result.emotional_tone,
                         "summary": result.summary,
                         "estimated_impact": result.estimated_impact,
-                    })
-                    all_cats.add(cat)
-                    for s in subs:
-                        all_subs.add(s)
-                else:
-                    if args.format == "csv":
-                        if csv_writer:
-                            csv_writer.writerow(output_row)
-                    else:  # jsonl
-                        payload = {
-                            "ticket": row.get("ticket_id") or row.get("id") or count + 1,
-                            "category": cat,
-                            "subcategories": subs,
-                            "sentiment": result.sentiment,
-                            "emotional_tone": result.emotional_tone,
-                            "summary": result.summary,
-                            "estimated_impact": result.estimated_impact,
-                        }
-                        data = orjson.dumps(payload)
-                        if out_f:
-                            out_f.write(data + b"\n")
-                        else:
-                            sys.stdout.buffer.write(data + b"\n")
+                    }
+                    data = orjson.dumps(payload)
+                    if out_f:
+                        out_f.write(data + b"\n")
+                    else:
+                        sys.stdout.buffer.write(data + b"\n")
 
                 count += 1
                 pbar.update(1)
@@ -314,6 +321,7 @@ def main(argv: List[str] | None = None) -> int:
         consolidator = LLMTaxonomyConsolidator(client)
         buffered = []
         all_cats.clear(); all_subs.clear()
+        cat_freq.clear()
         with args.resume_consolidate_from.open("rb") as f:
             for line in f:
                 if not line.strip():
@@ -323,13 +331,29 @@ def main(argv: List[str] | None = None) -> int:
                     logging.warning("Entrée intermédiaire invalide ignorée")
                     continue
                 buffered.append(obj)
-                all_cats.add(obj["category"])
+                c = obj["category"]
+                all_cats.add(c)
+                cat_freq[c] += 1
                 for s in obj["subcategories"]:
                     all_subs.add(s)
 
     # Consolidation
     if consolidator and buffered:
         batch_size = args.consolidation_batch_size if args.consolidation_batch_size is not None else settings.consolidation_batch_size
+        # Heuristique de pré-fusion des catégories
+        from .taxonomy import heuristic_category_mapping
+        pre_map = heuristic_category_mapping(
+            all_cats,
+            cat_freq,
+            synonyms=settings.taxonomy_synonyms,
+            max_categories=(args.max_categories if args.max_categories is not None else settings.max_categories),
+            threshold=(args.merge_threshold if args.merge_threshold is not None else settings.merge_threshold),
+        )
+        if pre_map:
+            logging.info("Heuristic pre-merge: categories=%d -> %d (threshold=%.2f, max=%s)",
+                         len(all_cats), len(set(pre_map.values())),
+                         (args.merge_threshold if args.merge_threshold is not None else settings.merge_threshold),
+                         (args.max_categories if args.max_categories is not None else settings.max_categories))
         # Calcul du nombre de lots pour la barre de progression
         def _nb_batches(n: int, b: int) -> int:
             return (n + max(1, b) - 1) // max(1, b)
@@ -343,6 +367,7 @@ def main(argv: List[str] | None = None) -> int:
                 all_subs,
                 batch_size=batch_size,
                 on_progress=pbar.update,
+                seed_category_mapping=pre_map,
             )
         logging.info("Consolidation mappings: category_mapping=%d, subcategory_mapping=%d", len(cat_map), len(sub_map))
 

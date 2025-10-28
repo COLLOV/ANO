@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass
 from dotenv import load_dotenv
+import json
 
 
 @dataclass(frozen=True)
@@ -18,6 +19,9 @@ class Settings:
     api_workers: int
     consolidation_batch_size: int
     consolidation_rounds: int
+    taxonomy_synonyms: dict
+    max_categories: int | None
+    merge_threshold: float
 
 
 def load_settings() -> Settings:
@@ -58,6 +62,27 @@ def load_settings() -> Settings:
     except ValueError:
         raise ValueError("CONSOLIDATION_ROUNDS must be an integer")
 
+    # Optional heuristic consolidation controls
+    synonyms_env = os.getenv("TAXONOMY_SYNONYMS")
+    taxonomy_synonyms: dict
+    if synonyms_env:
+        try:
+            taxonomy_synonyms = json.loads(synonyms_env)
+            if not isinstance(taxonomy_synonyms, dict):
+                taxonomy_synonyms = {}
+        except Exception:
+            taxonomy_synonyms = {}
+    else:
+        taxonomy_synonyms = {}
+
+    max_categories_env = os.getenv("MAX_CATEGORIES")
+    max_categories = int(max_categories_env) if max_categories_env else None
+
+    try:
+        merge_threshold = float(os.getenv("MERGE_THRESHOLD", "0.86"))
+    except ValueError:
+        merge_threshold = 0.86
+
     if llm_mode == "api" and not openai_api_key:
         raise RuntimeError("OPENAI_API_KEY is required in API mode")
 
@@ -76,4 +101,7 @@ def load_settings() -> Settings:
         api_workers=api_workers,
         consolidation_batch_size=consolidation_batch_size,
         consolidation_rounds=consolidation_rounds,
+        taxonomy_synonyms=taxonomy_synonyms,
+        max_categories=max_categories,
+        merge_threshold=merge_threshold,
     )
