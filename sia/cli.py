@@ -31,6 +31,51 @@ def read_csv_rows(path: Path) -> Iterable[dict]:
             yield row
 
 
+def read_xlsx_rows(path: Path) -> Iterable[dict]:
+    """Lire les lignes d'un fichier XLSX en dict.
+
+    - Utilise la première feuille
+    - La première ligne est l'en-tête
+    - Pas de mécanisme de fallback: en cas d'erreur on laisse remonter
+    """
+    from openpyxl import load_workbook  # dépendance ajoutée via uv
+
+    wb = load_workbook(filename=str(path), read_only=True, data_only=True)
+    ws = wb.active
+    rows_iter = ws.iter_rows(values_only=True)
+    try:
+        header = next(rows_iter)
+    except StopIteration:
+        return
+
+    headers = [
+        (str(h).strip() if h is not None else "")
+        for h in header
+    ]
+    logging.debug("XLSX headers: %s", headers)
+
+    for row in rows_iter:
+        # Mappe chaque cellule à son en-tête; si vide, génère un nom de colonne
+        out: dict = {}
+        for i, val in enumerate(row):
+            key = headers[i] if i < len(headers) and headers[i] else f"col_{i+1}"
+            out[key] = val
+        yield out
+
+
+def read_rows(path: Path) -> Iterable[dict]:
+    suffix = path.suffix.lower()
+    if suffix in {".xlsx", ".xlsm"}:
+        logging.info("Lecture XLSX: %s", path)
+        return read_xlsx_rows(path)
+    elif suffix == ".csv" or not suffix:
+        # Par défaut on considère CSV si pas d'extension
+        logging.info("Lecture CSV: %s", path)
+        return read_csv_rows(path)
+    else:
+        raise ValueError(f"Extension non supportée: {suffix}")
+
+
 def extract_text(row: dict) -> Optional[str]:
     for key in ("feedback", "text", "message", "comment"):
         if key in row and row[key]:
@@ -77,7 +122,7 @@ def main(argv: List[str] | None = None) -> int:
 
     # Pré-lire les lignes (jusqu'à --limit) pour pouvoir paralléliser proprement
     rows: List[dict] = []
-    for row in read_csv_rows(args.input):
+    for row in read_rows(args.input):
         rows.append(row)
         if args.limit and len(rows) >= args.limit:
             break
