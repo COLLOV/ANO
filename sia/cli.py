@@ -336,6 +336,7 @@ def main(argv: List[str] | None = None) -> int:
         total_batches = _nb_batches(len(all_cats), batch_size) + _nb_batches(len(all_subs), batch_size)
         if total_batches <= 0:
             total_batches = 1
+        logging.info("Consolidation: categories=%d, subcategories=%d, batch_size=%d", len(all_cats), len(all_subs), batch_size)
         with tqdm(total=total_batches, desc="Consolidation LLM", unit="lot") as pbar:
             cat_map, sub_map = consolidator.consolidate_batched(
                 all_cats,
@@ -343,6 +344,7 @@ def main(argv: List[str] | None = None) -> int:
                 batch_size=batch_size,
                 on_progress=pbar.update,
             )
+        logging.info("Consolidation mappings: category_mapping=%d, subcategory_mapping=%d", len(cat_map), len(sub_map))
 
         # Passes supplémentaires pour harmoniser entre lots
         rounds = args.consolidation_rounds if args.consolidation_rounds is not None else settings.consolidation_rounds
@@ -360,6 +362,8 @@ def main(argv: List[str] | None = None) -> int:
             sub_map = {k: sub_map2.get(v, v) for k, v in sub_map.items()}
             if len(set(cat_map.values())) == prev_cats and len(set(sub_map.values())) == prev_subs:
                 break
+        logging.info("Consolidation unique counts after mapping: categories=%d -> %d, subcategories=%d -> %d",
+                    len(all_cats), len(set(cat_map.values())), len(all_subs), len(set(sub_map.values())))
 
         # Initialiser csv_writer pour consolidation si nécessaire
         if args.format == "csv" and not csv_writer:
@@ -382,10 +386,15 @@ def main(argv: List[str] | None = None) -> int:
             csv_writer = csv.DictWriter(sys.stdout, fieldnames=output_fieldnames)
             csv_writer.writeheader()
 
+        final_cats: set[str] = set()
+        final_subs: set[str] = set()
         for item in tqdm(buffered, desc="Consolidation", unit="ligne"):
             row = item["original_row"]
             cat = cat_map.get(item["category"], item["category"])
             subs = [sub_map.get(s, s) for s in item["subcategories"]]
+            final_cats.add(cat)
+            for s in subs:
+                final_subs.add(s)
 
             if args.format == "csv":
                 output_row = row.copy()
@@ -416,12 +425,15 @@ def main(argv: List[str] | None = None) -> int:
                     sys.stdout.buffer.write(data + b"\n")
 
     processed_total = count if count > 0 else (len(buffered) if consolidator else 0)
-    logging.info(
-        "Processed %d feedback(s). Categories=%d, Subcategories(total)=%d",
-        processed_total,
-        len(taxo.categories),
-        sum(len(v) for v in taxo.subs_by_cat.values()),
-    )
+    if consolidator and buffered:
+        logging.info("Final consolidated unique counts: categories=%d, subcategories=%d", len(final_cats), len(final_subs))
+    else:
+        logging.info(
+            "Processed %d feedback(s). Categories=%d, Subcategories(total)=%d",
+            processed_total,
+            len(taxo.categories),
+            sum(len(v) for v in taxo.subs_by_cat.values()),
+        )
 
     if out_f:
         out_f.close()

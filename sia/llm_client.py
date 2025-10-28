@@ -40,16 +40,29 @@ class LLMClient:
             },
         )
 
-    def chat_json(self, system: str, messages: List[Dict[str, str]], *, temperature: float = 0.2) -> Dict[str, Any]:
+    def chat_json(
+        self,
+        system: str,
+        messages: List[Dict[str, str]],
+        *,
+        temperature: float = 0.2,
+        json_schema: Dict[str, Any] | None = None,
+    ) -> Dict[str, Any]:
         """Send a chat completion request and expect a strict JSON object.
 
         Fails loudly if the response cannot be parsed as JSON.
         """
+        response_format: Dict[str, Any]
+        if json_schema is not None:
+            response_format = {"type": "json_schema", "json_schema": json_schema}
+        else:
+            response_format = {"type": "json_object"}
+
         resp = self.client.chat.completions.create(
             model=self.model,
             temperature=temperature,
             messages=[{"role": "system", "content": system}, *messages],
-            response_format={"type": "json_object"},
+            response_format=response_format,
         )
 
         content = resp.choices[0].message.content or ""
@@ -62,4 +75,3 @@ class LLMClient:
         if not isinstance(data, dict):
             raise ValueError("Expected a JSON object")
         return data
-

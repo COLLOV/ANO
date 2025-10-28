@@ -72,7 +72,28 @@ class LLMTaxonomyConsolidator:
                 "ne pas inventer de nouvelles catégories hors consolidation",
             ],
         }
-        data = self.client.chat_json(self.SYSTEM, [{"role": "user", "content": str(payload)}])
+        schema = {
+            "name": "taxonomy_consolidation",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "category_mapping": {
+                        "type": "object",
+                        "additionalProperties": {"type": "string"},
+                        "default": {},
+                    },
+                    "subcategory_mapping": {
+                        "type": "object",
+                        "additionalProperties": {"type": "string"},
+                        "default": {},
+                    },
+                },
+                "required": ["category_mapping", "subcategory_mapping"],
+                "additionalProperties": False,
+            },
+            "strict": True,
+        }
+        data = self.client.chat_json(self.SYSTEM, [{"role": "user", "content": str(payload)}], json_schema=schema)
         cat_map = data.get("category_mapping") or {}
         sub_map = data.get("subcategory_mapping") or {}
         if not isinstance(cat_map, dict) or not isinstance(sub_map, dict):
@@ -117,7 +138,28 @@ class LLMTaxonomyConsolidator:
                     "ne pas inventer de nouvelles catégories hors consolidation",
                 ],
             }
-            data = self.client.chat_json(self.SYSTEM, [{"role": "user", "content": str(payload)}])
+            schema = {
+                "name": "taxonomy_consolidation_cat",
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "category_mapping": {
+                            "type": "object",
+                            "additionalProperties": {"type": "string"},
+                            "default": {},
+                        },
+                        "subcategory_mapping": {
+                            "type": "object",
+                            "additionalProperties": {"type": "string"},
+                            "default": {},
+                        },
+                    },
+                    "required": ["category_mapping", "subcategory_mapping"],
+                    "additionalProperties": False,
+                },
+                "strict": True,
+            }
+            data = self.client.chat_json(self.SYSTEM, [{"role": "user", "content": str(payload)}], json_schema=schema)
             part_cat = data.get("category_mapping") or {}
             if not isinstance(part_cat, dict):
                 raise ValueError("LLM consolidation (cat batch): mapping invalide")
@@ -140,7 +182,28 @@ class LLMTaxonomyConsolidator:
                     "ne pas inventer de nouvelles catégories hors consolidation",
                 ],
             }
-            data = self.client.chat_json(self.SYSTEM, [{"role": "user", "content": str(payload)}])
+            schema = {
+                "name": "taxonomy_consolidation_sub",
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "category_mapping": {
+                            "type": "object",
+                            "additionalProperties": {"type": "string"},
+                            "default": {},
+                        },
+                        "subcategory_mapping": {
+                            "type": "object",
+                            "additionalProperties": {"type": "string"},
+                            "default": {},
+                        },
+                    },
+                    "required": ["category_mapping", "subcategory_mapping"],
+                    "additionalProperties": False,
+                },
+                "strict": True,
+            }
+            data = self.client.chat_json(self.SYSTEM, [{"role": "user", "content": str(payload)}], json_schema=schema)
             part_sub = data.get("subcategory_mapping") or {}
             if not isinstance(part_sub, dict):
                 raise ValueError("LLM consolidation (sub batch): mapping invalide")
