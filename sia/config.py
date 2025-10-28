@@ -14,6 +14,8 @@ class Settings:
     model_api: str
     model_local: str
     log_level: str
+    cli_workers: int
+    api_workers: int
 
 
 def load_settings() -> Settings:
@@ -33,6 +35,17 @@ def load_settings() -> Settings:
 
     log_level = os.getenv("LOG_LEVEL", "INFO").upper()
 
+    # Workers: configurables via .env
+    try:
+        cli_workers = int(os.getenv("CLI_WORKERS", "20"))  # défaut historique du CLI
+    except ValueError:
+        raise ValueError("CLI_WORKERS must be an integer")
+
+    try:
+        api_workers = int(os.getenv("API_WORKERS", "1"))  # uvicorn défaut conservé
+    except ValueError:
+        raise ValueError("API_WORKERS must be an integer")
+
     if llm_mode == "api" and not openai_api_key:
         raise RuntimeError("OPENAI_API_KEY is required in API mode")
 
@@ -47,5 +60,6 @@ def load_settings() -> Settings:
         model_api=model_api,
         model_local=model_local,
         log_level=log_level,
+        cli_workers=cli_workers,
+        api_workers=api_workers,
     )
-

@@ -92,7 +92,8 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument("--input", type=Path, default=Path("data/tickets_jira.csv"))
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--limit", type=int, default=0, help="Limiter le nombre de lignes (0 = tout)")
-    parser.add_argument("--workers", type=int, default=20, help="Nombre de workers en parallèle (défaut: 20)")
+    # Si non fourni, on prendra la valeur depuis .env (CLI_WORKERS)
+    parser.add_argument("--workers", type=int, default=None, help="Nombre de workers en parallèle (défaut: CLI_WORKERS ou 20)")
     parser.add_argument("--consolidate", action="store_true", help="Consolider les catégories/sous-catégories via LLM (2 passes)")
     parser.add_argument("--format", choices=["jsonl", "csv"], default="jsonl", help="Format de sortie (défaut: jsonl)")
     args = parser.parse_args(argv)
@@ -156,8 +157,9 @@ def main(argv: List[str] | None = None) -> int:
             return None
         return row, categorize_text(client, text)
 
-    logging.info("Traitement en parallèle: %d workers", args.workers)
-    with ThreadPoolExecutor(max_workers=args.workers) as ex, tqdm(total=len(rows), desc="Traitement", unit="ligne") as pbar:
+    worker_count = args.workers if args.workers is not None else settings.cli_workers
+    logging.info("Traitement en parallèle: %d workers", worker_count)
+    with ThreadPoolExecutor(max_workers=worker_count) as ex, tqdm(total=len(rows), desc="Traitement", unit="ligne") as pbar:
         for res in ex.map(_process, rows):
             if res is None:
                 pbar.update(1)

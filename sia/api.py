@@ -81,7 +81,8 @@ def categorize(req: CategorizeRequest, consolidate: bool = Query(default=False))
 
 def main() -> None:  # pragma: no cover
     import uvicorn
-    workers = int(os.getenv("API_WORKERS", "1"))
+    # Nombre de workers configurable via .env (API_WORKERS), centralisé dans Settings
+    workers = settings.api_workers
     uvicorn.run(
         app,
         host="0.0.0.0",
