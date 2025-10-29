@@ -62,7 +62,18 @@ def build_user_prompt(text: str) -> str:
 
 def categorize_text(client: LLMClient, text: str) -> Classification:
     user = build_user_prompt(text)
-    data = client.chat_json(SYSTEM_PROMPT, [{"role": "user", "content": user}])
+    # Enforce strict JSON schema so arrays are never empty in model output
+    schema = Classification.model_json_schema()
+    json_schema = {
+        "name": "classification_schema",
+        "strict": True,
+        "schema": schema,
+    }
+    data = client.chat_json(
+        SYSTEM_PROMPT,
+        [{"role": "user", "content": user}],
+        json_schema=json_schema,
+    )
     try:
         cls = Classification.model_validate(data)
     except ValidationError as e:
