@@ -97,3 +97,12 @@ Mode local (vLLM):
   - `LLM_MODE=local`
   - `VLLM_BASE_URL=http://127.0.0.1:8001/v1`
   - `LLM_MODEL_LOCAL=<NOM_MODELE>`
+ - Le client force désormais un schéma JSON strict (OpenAI `response_format: json_schema`) basé sur le modèle Pydantic. Assurez‑vous d'utiliser une version de vLLM qui supporte `response_format={"type":"json_schema"}`. Sinon, mettez à jour vLLM.
+
+Contraintes de sortie (enforcées côté LLM via JSON Schema):
+- `subcategories`: liste non vide (1–3 éléments)
+- `keywords`: liste non vide (3–8 éléments)
+- `sentiment`: `positif|neutre|negatif`
+- `estimated_impact`: `faible|moyen|fort`
+
+Cela évite les listes vides qui provoquaient des erreurs de validation Pydantic en mode local.
